@@ -25,19 +25,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/iconsax.css') }}" />
-    <link rel="stylesheet" id="rtl-link" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/swiper-bundle.min.css') }}" />
-    <link rel="stylesheet" id="change-link" type="text/css" href="{{ asset('assets/css/style.css') }}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
-    <style>
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            src: url('assets/fonts/Inter.ttf') format('truetype');
-        }
-    </style>
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Iconsax CSS -->
+    <link rel="preload" href="{{ asset('assets/css/vendors/iconsax.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ asset('assets/css/vendors/bootstrap.min.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ asset('assets/css/vendors/swiper-bundle.min.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ asset('assets/css/style.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'" id="change-link">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" as="script" rel="preload"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     @livewireStyles
 </head>
 @if (Route::is('home', 'login', 'register', 'forget-password'))
@@ -48,20 +52,28 @@
         <body>
 @endif
 @yield('main')
-<script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/js/custom-swiper.js') }}"></script>
+@livewireScripts
+<script rel="preload" src="{{ asset('assets/js/swiper-bundle.min.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/custom-swiper.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/feather.min.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/custom-feather.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/iconsax.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script"
+    onload="this.onload=null;this.rel='script'"></script>
+<script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
+</script>
 
-{{-- <script src="{{ asset('assets/js/feather.min.js') }}"></script> --}}
-  <script src="{{ asset('assets/js/custom-feather.js') }}"></script>
-
-<script src="{{ asset('assets/js/iconsax.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/offcanvas-popup.js') }}"></script>
-<script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
-@livewireScripts
 </body>
 
 </html>
