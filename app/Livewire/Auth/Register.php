@@ -28,7 +28,7 @@ class Register extends Component
     protected $rules = [
         'name' => 'required|min:5|max:50',
         'email' => 'required|email|email_validation',
-        'phone' => 'required|phone_number',
+        'phone' => 'required|phone_number|max:11',
         'password' => 'required',
         'agreed' => 'required',
         'refer_id' => 'nullable',
