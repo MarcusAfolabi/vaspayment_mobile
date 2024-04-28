@@ -17,9 +17,9 @@ class SideBar extends Component
        if (Session::has('user_token')) {
             $userWallet = Session::get("user_wallet");
             $userBonus = Session::get("user_bonus");
-            $this->balance = $userWallet["balance"];
-            $this->commission = $userWallet["commission"];
-            $this->bonus = $userBonus['bonus'] ?? '0';
+            $this->balance = $userWallet["balance"] ?? '0.00';
+            $this->commission = $userWallet["commission"] ?? '0.00';
+            $this->bonus = $userBonus['bonus'] ?? '0.00';
         }
         $this->menuItems = [
             ["label" => "Home", "url" => "/", "icon" => "home"],

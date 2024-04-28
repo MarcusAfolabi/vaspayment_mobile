@@ -95,9 +95,13 @@ class Register extends Component
 
             if ($response->successful()) {
                 $data = $response->json()['user'];
+                $wallet = $response->json()['wallet'];
+                $bonus = $response->json()['bonus'];
                 $token = $response->json()['token'];
                 // Store data and token in session
                 session(['user_data' => $data]);
+                session(['user_wallet' => $wallet]);
+                session(['user_bonus' => $bonus]);
                 session(['user_token' => $token]);
                 info($response->json());
                 return redirect()->to('/dashboard');
@@ -108,7 +112,7 @@ class Register extends Component
             }
         } catch (\Exception $e) {
             info($e->getMessage());
-            $this->addError('error', 'Login failed. Please try again with correct login detail');
+            $this->addError('error', 'Register failed. Please try again with correct login detail');
         }
     }
     public function render()
