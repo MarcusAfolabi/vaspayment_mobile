@@ -28,7 +28,7 @@
 
             <div class="remember-option mt-3">
                 <div class="form-check">
-                    <input wire:model.lazy='remember_me' class="form-check-input" type="checkbox" value="yes" />
+                    <input wire:model.lazy='remember_me' class="form-check-input" type="checkbox" value="1" />
                     <label class="form-check-label" for="flexCheckDefault">Remember me</label>
                 </div>
                 <a wire:navigate.hover class="forgot" href="{{ route('forget.password') }}">Forgot password?</a>
@@ -41,6 +41,9 @@
 
             <input hidden value="{{ $device_data }}" wire:model="device_data">
             @error('device_data')
+                <em class="text-danger">{{ $message }}</em>
+            @enderror
+             @error('error')
                 <em class="text-danger">{{ $message }}</em>
             @enderror
 

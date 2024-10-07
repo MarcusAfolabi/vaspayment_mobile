@@ -19,4 +19,9 @@ class HomeController extends Controller
     {
         return view("dashboard.virtual-account");
     }
+
+    public function airtime()
+    {
+        return view("airtime.index");
+    }
 }

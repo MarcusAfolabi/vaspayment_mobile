@@ -6,6 +6,10 @@ use App\Models\Key;
 
 class ApiEndpoints
 {
+    public static function verifyNIN()
+    {
+        return self::baseUrl() . '/api/v1/verify-nin';
+    }
     public static function VirtualFundingTransactions()
     {
         return self::baseUrl() . '/api/v1/get-funding-transactions';

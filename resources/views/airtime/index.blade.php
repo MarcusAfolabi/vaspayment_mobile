@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Virtual Account')
+@section('title', 'Buy Airtime')
 @section('main')
 <x-virtual_header />
 @livewire('virtual_account')

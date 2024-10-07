@@ -27,11 +27,11 @@ class Register extends Component
 
     protected $rules = [
         'name' => 'required|min:5|max:50',
-        'email' => 'required|email|email_validation',
-        'phone' => 'required|phone_number|max:11',
-        'password' => 'required',
+        'email' => 'required|email|email_validation|unique:users,email',
+        'phone' => 'required|phone_number|max:11|unique:users,email',
+        'password' => 'required|string',
         'agreed' => 'required',
-        'refer_id' => 'nullable',
+        'refer_id' => 'nullable|exists:wallets,wallet_id',
         'location_data' => 'required',
         'device_data' => 'required',
     ];
@@ -79,6 +79,7 @@ class Register extends Component
     {
         $this->validateOnly($propertyName);
     }
+
     public function register()
     {
         $this->validate();

@@ -2,7 +2,7 @@
     <div class="custom-container">
         <ul class="categories-list">
             <li>
-                <a href="#">
+                <a href="{{ route('airtime.index') }}">
                     <div class="categories-box">
                         <i class="categories-icon" data-feather="repeat"></i>
                     </div>

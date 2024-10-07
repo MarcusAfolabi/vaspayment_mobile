@@ -7,8 +7,21 @@
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
                 <div class="form-input">
-                    <input wire:model.lazy='email' name='email' type="email" class="form-control"
-                        placeholder="Enter Your Email" />
+                    <input wire:model.lazy='email' readonly name='email' type="email" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Password</label>
+                <div class="form-input">
+                    <input wire:model.lazy='email' type="password" class="form-control"
+                        placeholder="Enter your new password" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Confirm password</label>
+                <div class="form-input">
+                    <input wire:model.lazy='email' type="password" class="form-control"
+                        placeholder="Enter again to confirm" />
                 </div>
             </div>
             @error('email')

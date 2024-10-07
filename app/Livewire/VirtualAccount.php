@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use PDO;
 
 class VirtualAccount extends Component
 {
@@ -15,7 +16,7 @@ class VirtualAccount extends Component
     public $accounts;
     public $submit_nin;
     public $cacheKey = 'virtual_accounts';
-
+   
     public function mount()
     {
         if (Session::has('user_token')) {
@@ -53,6 +54,8 @@ class VirtualAccount extends Component
             }
         }
     }
+
+    
 
     public function render()
     {

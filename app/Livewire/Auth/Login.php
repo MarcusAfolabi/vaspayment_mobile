@@ -27,7 +27,7 @@ class Login extends Component
         'password' => 'required',
         'location_data' => 'required',
         'device_data' => 'required',
-        'remember_me' => 'required',
+        'remember_me' => 'sometimes',
     ];
 
     public function mount(Request $request)
@@ -68,43 +68,11 @@ class Login extends Component
             Log::alert($th->getMessage());
         }
     }
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-         try {
-            $response = Http::post(ApiEndpoints::login(), [
-                'email' => $this->email,
-                'password' => $this->password,
-                'location_data' => $this->location_data,
-                'device_data' => $this->device_data,
-            ]);
-
-            if ($response->successful()) {
-                $data = $response->json()['user'];
-                $wallet = $response->json()['wallet'];
-                $bonus = $response->json()['bonus'];
-                $token = $response->json()['token'];
-                // Store data and token in session
-                session(['user_data' => $data]);
-                session(['user_wallet' => $wallet]);
-                session(['user_bonus' => $bonus]);
-                session(['user_token' => $token]);
-                info($response->json());
-                return redirect()->to('/dashboard');
-            } else {
-                $errorMessage = $response->json()['message'];
-                info($errorMessage);
-                $this->addError('email', $errorMessage);
-            }
-        } catch (\Exception $e) {
-            info($e->getMessage());
-            $this->addError('email', 'Login failed. Please try again with correct login detail');
-        }
-    }
-
+   
     public function login()
     {
         $this->validate();
+        // dd('HI');
         try {
             $response = Http::post(ApiEndpoints::login(), [
                 'email' => $this->email,

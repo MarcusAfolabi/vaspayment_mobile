@@ -31,7 +31,7 @@ class SideBar extends Component
             ["label" => "WAEC Card", "url" => "/wace", "icon" => "book"],
             ["label" => "Recharge Card", "url" => "/recharge-card", "icon" => "phone"],
             ["label" => "Profile", "url" => "/profile", "icon" => "user"],
-            ["label" => "Logout", "url" => "/logout", "icon" => "log-out"],
+            // ["label" => "Logout", "url" => "/logout", "icon" => "log-out"],
         ];
     }
     public function render()

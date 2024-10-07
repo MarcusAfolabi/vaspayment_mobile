@@ -20,4 +20,10 @@ class AuthenticationController extends Controller
     {
         return view("auth.forget-password");
     }
+
+    public function logout(Request $request)
+    {
+        $request->session()->forget("token");
+        return redirect("/");
+    }
 }
