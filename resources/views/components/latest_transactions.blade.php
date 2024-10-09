@@ -1,8 +1,8 @@
  <section>
      <div class="custom-container">
          <div class="title">
-             <h2>Transaction</h2>
-             <a href="#">See all</a>
+             <h2>Transactiona</h2>
+             <a href="#">See more</a>
          </div>
 
          <div class="row gy-3">

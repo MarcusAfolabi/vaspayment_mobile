@@ -9,54 +9,43 @@
              <h2>&#8358; {{ $balance }}</h2>
          </div>
      </div>
+     <style>
+         .menu-item {
+             display: flex;
+             /* Use flexbox for alignment */
+             align-items: center;
+             /* Center items vertically */
+             text-decoration: none;
+             /* Remove underline from links */
+             padding: 8px 16px;
+             /* Add padding for spacing */
+             color: #000;
+             /* Change color if needed */
+         }
+
+         .menu-item img {
+             margin-right: 8px;
+             /* Space between icon and label */
+         }
+     </style>
      <div class="offcanvas-body">
          <div class="sidebar-content">
              <ul class="link-section">
-                 @foreach ($menuItems as $menu)
+
+                 @foreach($menuItems as $item)
                  <li>
-                     <a href="{{ $menu['url'] }}" class="pages">
-                         <i class="sidebar-icon" data-feather="{{ $menu['icon'] }}"></i>
-                         <h3>{{ $menu['label'] }}</h3>
+                     <a href="{{ $item['url'] }}" class="menu-item">
+                         <img src="{{ $item['icon'] }}" alt="{{ $item['label'] }} Icon" width="24" height="24">
+                         {{ $item['label'] }}
                      </a>
                  </li>
                  @endforeach
              </ul>
-             <div class="mode-switch">
-                 <ul class="switch-section">
-                     <li>
-                         <h3>Dark</h3>
-                         <div class="switch-btn">
-                             <input id="dark-switch" type="checkbox" />
-                         </div>
-                     </li>
-                     <li>
-                         <h3>About us</h3>
-                         <div class="switch-btn">
-                             {{-- <input id="dark-switch" type="checkbox" /> --}}
-                         </div>
-                     </li>
-                     <li>
-                         <h3>Privacy Policy</h3>
-                         <div class="switch-btn">
-                             {{-- <input id="dark-switch" type="checkbox" /> --}}
-                         </div>
-                     </li>
-                     <li>
-                         <h3>Contact us</h3>
-                         <div class="switch-btn">
-                             {{-- <input id="dark-switch" type="checkbox" /> --}}
-                         </div>
-                     </li>
-                     <li>
-                         <h3>
-                             <form action="{{ route('logout') }}" method="POST">
-                                 @csrf
-                                 <button type="submit" class="btn theme-btn w-100">Logout</button>
-                             </form>
-                         </h3>
-                     </li>
-                 </ul>
-             </div>
+
+             <form action="{{ route('logout') }}" method="POST">
+                 @csrf
+                 <button type="submit" class="btn theme-btn w-100">Logout</button>
+             </form>
          </div>
      </div>
- </div>
+ </div> 

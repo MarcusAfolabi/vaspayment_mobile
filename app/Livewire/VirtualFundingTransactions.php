@@ -18,8 +18,8 @@ class VirtualFundingTransactions extends Component
 
     public function mount()
     {
-        if (Session::has('user_token')) {
-            $user = Session::get("user_data");
+        if (Session::has('token')) {
+            $user = Session::get("user");
             if ($user['nin']) {
                 try {
                     // Check if the data is cached

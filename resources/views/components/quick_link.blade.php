@@ -1,36 +1,40 @@
 <section class="categories-section section-b-space">
     <div class="custom-container">
+        <div class="title">
+            <h2></h2>
+            <a href="#">See more</a>
+        </div>
         <ul class="categories-list">
             <li>
                 <a href="{{ route('airtime.index') }}">
                     <div class="categories-box">
-                        <i class="categories-icon" data-feather="repeat"></i>
+                        <img src="{{ asset('assets/feather/smartphone.svg') }}" />
                     </div>
                     <h5 class="mt-2 text-center">Airtime</h5>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('airtime.index') }}">
                     <div class="categories-box">
-                        <i class="categories-icon" data-feather="file-text"></i>
+                        <img src="{{ asset('assets/feather/wifi.svg') }}" />
                     </div>
                     <h5 class="mt-2 text-center">Data</h5>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('airtime.index') }}">
                     <div class="categories-box">
-                        <i class="categories-icon icon1" data-feather="log-in"></i>
+                        <img src="{{ asset('assets/feather/zap.svg') }}" />
                     </div>
-                    <h5 class="mt-2 text-center">Cable</h5>
+                    <h5 class="mt-2 text-center">Power</h5>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('airtime.index') }}">
                     <div class="categories-box">
-                        <i class="iconsax categories-icon" data-icon="bank"></i>
+                        <img src="{{ asset('assets/feather/tv.svg') }}" />
                     </div>
-                    <h5 class="mt-2 text-center">Power</h5>
+                    <h5 class="mt-2 text-center">Cable</h5>
                 </a>
             </li>
         </ul>

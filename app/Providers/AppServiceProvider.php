@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         }, "The :attribute validation failed. Please try another email.");
 
         Validator::extend('phone_number', function ($attribute, $value, $parameters, $validator) {
-            return preg_match('/^0(?:70|71|80|81|90|91)[0-9]{8}$/', $value) && strlen($value) <= 11;
-        }, 'The :attribute number is incomplete, must be maximum of 11 digits.');
+            return preg_match('/^0(?:70|71|80|81|90|91)[0-9]{8}$/', $value) && strlen($value) <= 10;
+        }, 'The :attribute number is incomplete, must be maximum of 10 digits.');
     }
 }

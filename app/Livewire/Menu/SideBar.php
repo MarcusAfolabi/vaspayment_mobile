@@ -14,25 +14,23 @@ class SideBar extends Component
     public $logo = 'https://vaspayment.com/logo_web.png';
     public function mount()
     {
-       if (Session::has('user_token')) {
-            $userWallet = Session::get("user_wallet");
-            $userBonus = Session::get("user_bonus");
+        if (Session::has('token')) {
+            $userWallet = Session::get("wallet");
+            $userBonus = Session::get("bonus");
             $this->balance = $userWallet["balance"] ?? '0.00';
             $this->commission = $userWallet["commission"] ?? '0.00';
             $this->bonus = $userBonus['bonus'] ?? '0.00';
         }
         $this->menuItems = [
-            ["label" => "Home", "url" => "/", "icon" => "home"],
-            ["label" => "All Transactions", "url" => "/transactions", "icon" => "credit-card"],
-            ["label" => "Airtime", "url" => "/airtime", "icon" => "smartphone"],
-            ["label" => "Data", "url" => "/data", "icon" => "database"],
-            ["label" => "Cable", "url" => "/cable", "icon" => "tv"],
-            ["label" => "Electricity", "url" => "/electricity", "icon" => "zap"],
-            ["label" => "WAEC Card", "url" => "/wace", "icon" => "book"],
-            ["label" => "Recharge Card", "url" => "/recharge-card", "icon" => "phone"],
-            ["label" => "Profile", "url" => "/profile", "icon" => "user"],
-            // ["label" => "Logout", "url" => "/logout", "icon" => "log-out"],
+            ["label" => "Home", "url" => "/", "icon" => asset('assets/feather/home.svg')],
+            ["label" => "All Transactions", "url" => "/transactions", "icon" => asset('assets/feather/credit-card.svg')],
+            ["label" => "Airtime", "url" => "/airtime", "icon" => asset('assets/feather/smartphone.svg')],
+            ["label" => "Data", "url" => "/data", "icon" => asset('assets/feather/wifi.svg')],
+            ["label" => "Cable", "url" => "/cable", "icon" => asset('assets/feather/tv.svg')],
+            ["label" => "Electricity", "url" => "/electricity", "icon" => asset('assets/feather/zap.svg')],
+            ["label" => "WAEC Card", "url" => "/wace", "icon" => asset('assets/feather/book.svg')],
         ];
+
     }
     public function render()
     {

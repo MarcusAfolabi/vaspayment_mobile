@@ -5,36 +5,41 @@ namespace App\Livewire\Auth;
 use Livewire\Component;
 use App\Services\ApiEndpoints;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class ForgetPassword extends Component
 {
     public $email;
+    public $device_data;
 
     protected $rules = [
         'email' => 'required|string|email|email_validation',
+        'device_data' => 'required',
     ];
+    public function mount()
+    {
+        $this->device_data = Session::get('device_name');
+    }
+   
     public function forget()
     {
-        info('1');
-        $this->validate();
-        info('1');
         try {
-            $response = Http::post(ApiEndpoints::forget(), [
+            $this->validate();
+            $response = Http::post(ApiEndpoints::forgetPassword(), [
                 'email' => $this->email,
+                'device_data' => $this->device_data,
             ]);
-            info($response->json());
-            if ($response->successful()) {
-                $message = $response->json()['message'];
-                info($message);
-                session()->flash('status', $message);
+            if ($response->successful()) { 
+                  session(['user_forget_email' => $this->email]);
+                Session::flash("success", $response->json()['message']);
+                return redirect('/reset-password');
             } else {
                 $errorMessage = $response->json()['message'];
-                info($errorMessage);
                 $this->addError('email', $errorMessage);
             }
         } catch (\Exception $e) {
             info($e->getMessage());
-            $this->addError('error', 'Email failed. Please try again');
+            $this->addError('email', $e->getMessage());
         }
     }
     public function render()

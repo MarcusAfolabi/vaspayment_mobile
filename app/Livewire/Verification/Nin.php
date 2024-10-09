@@ -18,7 +18,7 @@ class Nin extends Component
     ];
     public function mount()
     {
-        $get = Session::get('user_wallet');
+        $get = Session::get('wallet');
         if ($get) {
             $this->wallet_id = $get['id'];
         }
@@ -37,7 +37,7 @@ class Nin extends Component
             $response = Http::withHeaders($headers)
                 ->withBody(json_encode($body), 'application/json')
                 ->post(ApiEndpoints::verifyNIN());
-                dd($response);
+            dd($response);
         } catch (\Throwable $th) {
             Log::info($th->getMessage());
             $this->addError('nin', 'NIN verification failed. Please try again with correct NIN detail');

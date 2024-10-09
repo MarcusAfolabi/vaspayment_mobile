@@ -55,11 +55,11 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://app.vaspayment.com'),
 
     'asset_url' => env('ASSET_URL'),
     'ipkey' => env('IP_API_KEY'),
-    'api_base_url' => env('API_BASE_URL'),
+    'api_base_url' => env('API_BASE_URL', 'https://api.vaspayment.com/api/v1'),
 
     /*
     |--------------------------------------------------------------------------

@@ -33,19 +33,7 @@
                 </div>
                 <a wire:navigate.hover class="forgot" href="{{ route('forget.password') }}">Forgot password?</a>
             </div>
-
-            <input hidden value="{{ $location_data }}" wire:model='location_data' />
-            @error('location_data')
-                <em class="text-danger">{{ $message }}</em>
-            @enderror
-
-            <input hidden value="{{ $device_data }}" wire:model="device_data">
-            @error('device_data')
-                <em class="text-danger">{{ $message }}</em>
-            @enderror
-             @error('error')
-                <em class="text-danger">{{ $message }}</em>
-            @enderror
+ 
 
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100" >
                 <span wire:loading wire:target="login">Checking records...</span>

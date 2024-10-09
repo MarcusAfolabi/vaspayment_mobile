@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use App\Models\User;
 use GuzzleHttp\Client;
 use Livewire\Component;
 use Jenssegers\Agent\Agent;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Services\ApiEndpoints;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class Register extends Component
 {
@@ -26,53 +28,19 @@ class Register extends Component
     public $loading = false;
 
     protected $rules = [
-        'name' => 'required|min:5|max:50',
+        'name' => 'required|string|max:50',
         'email' => 'required|email|email_validation|unique:users,email',
-        'phone' => 'required|phone_number|max:11|unique:users,email',
-        'password' => 'required|string',
+        'phone' => 'required|digits:10|unique:users,phone',
+        'password' => 'required|password_complexity',
         'agreed' => 'required',
-        'refer_id' => 'nullable|exists:wallets,wallet_id',
+        'refer_id' => 'nullable|digits:8|exists:wallets,wallet_id',
         'location_data' => 'required',
         'device_data' => 'required',
     ];
 
     public function mount(Request $request)
     {
-        try {
-            $this->loading = true;
-            $agent = new Agent();
-            $isPhone = $agent->isPhone() ? 'Yes' : 'No';
-            $isDesktop = $agent->isDesktop() ? 'Yes' : 'No';
-            $browser = $agent->browser();
-            $browserVersion = $agent->version($browser);
-            $os = $agent->platform();
-            $OSversion = $agent->version($os);
-            $this->device_data = "Is Phone: $isPhone, Is Desktop: $isDesktop, Browser Type: $browser, Browser Version: $browserVersion, OS Type: $os, OS Version: $OSversion";
-        } catch (\Throwable $th) {
-            $this->addError('device_data', 'Unable to get your device properties');
-            Log::alert($th->getMessage());
-        }
-
-        try {
-            $this->key = config('app.ipkey');
-            $this->ip = $request->server('REMOTE_ADDR');
-            $client = new Client();
-            $response = $client->get("https://ipinfo.io/{$this->ip}?token={$this->key}");
-            $body = $response->getBody()->getContents();
-            $data = json_decode($body, true);
-            $ip = $data['ip'] ?? '';
-            $location = $data['loc'] ?? '';
-            $city = $data['city'] ?? '';
-            $region = $data['region'] ?? '';
-            $country = $data['country'] ?? '';
-            $org = $data['org'] ?? '';
-            $postal = $data['postal'] ?? '';
-            $this->location_data = "IP: $ip, LagLog: $location, City: $city, Region: $region, Country: $country, ISP: $org, PostalCode: $postal";
-            $this->loading = false;
-        } catch (\Throwable $th) {
-            $this->addError('location_data', 'Unable to get your location data');
-            Log::alert($th->getMessage());
-        }
+        $this->device_data = Session::get('device_name');
     }
 
     public function updated($propertyName)
@@ -80,6 +48,7 @@ class Register extends Component
         $this->validateOnly($propertyName);
     }
 
+   public $countryCode;
     public function register()
     {
         $this->validate();
@@ -87,11 +56,12 @@ class Register extends Component
             $response = Http::post(ApiEndpoints::register(), [
                 'email' => $this->email,
                 'name' => $this->name,
-                'phone' => $this->phone,
+                'phone' => $this->countryCode . $this->phone,
                 'refer_id' => $this->refer_id,
                 'password' => $this->password,
                 'location_data' => $this->location_data,
                 'device_data' => $this->device_data,
+                'currency' => "₦",
             ]);
 
             if ($response->successful()) {
@@ -100,10 +70,10 @@ class Register extends Component
                 $bonus = $response->json()['bonus'];
                 $token = $response->json()['token'];
                 // Store data and token in session
-                session(['user_data' => $data]);
-                session(['user_wallet' => $wallet]);
-                session(['user_bonus' => $bonus]);
-                session(['user_token' => $token]);
+                session(['user' => $data]);
+                session(['wallet' => $wallet]);
+                session(['bonus' => $bonus]);
+                session(['token' => $token]);
                 info($response->json());
                 return redirect()->to('/dashboard');
             } else {

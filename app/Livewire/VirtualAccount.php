@@ -16,11 +16,11 @@ class VirtualAccount extends Component
     public $accounts;
     public $submit_nin;
     public $cacheKey = 'virtual_accounts';
-   
+
     public function mount()
     {
-        if (Session::has('user_token')) {
-            $user = Session::get("user_data");
+        if (Session::has('token')) {
+            $user = Session::get("user");
             if ($user['nin']) {
                 $this->submit_nin = false;
                 try {
@@ -55,7 +55,7 @@ class VirtualAccount extends Component
         }
     }
 
-    
+
 
     public function render()
     {

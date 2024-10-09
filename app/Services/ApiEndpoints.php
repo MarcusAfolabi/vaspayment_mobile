@@ -8,33 +8,39 @@ class ApiEndpoints
 {
     public static function verifyNIN()
     {
-        return self::baseUrl() . '/api/v1/verify-nin';
+        return self::baseUrl() . '/verify-nin';
     }
     public static function VirtualFundingTransactions()
     {
-        return self::baseUrl() . '/api/v1/get-funding-transactions';
+        return self::baseUrl() . '/get-funding-transactions';
     }
+
+    public static function userTransactions()
+    {
+        return self::baseUrl() . '/get-latest-transactions';
+    }
+
     public static function virtualAccount()
     {
-        return self::baseUrl() . '/api/v1/get-virtual-account';
+        return self::baseUrl() . '/get-virtual-account';
     }
     public static function dashboard()
     {
-        return self::baseUrl() . '/api/v1/auth/dashboard';
+        return self::baseUrl() . '/auth/dashboard';
     }
-    public static function forget()
+    public static function forgetPassword()
     {
-        return self::baseUrl() . '/api/v1/auth/forget-password';
+        return self::baseUrl() . '/auth/forget-password';
     }
 
     public static function login()
     {
-        return self::baseUrl() . '/api/v1/auth/login';
+        return self::baseUrl() . '/auth/login';
     }
 
     public static function register()
     {
-        return self::baseUrl() . '/api/v1/auth/register';
+        return self::baseUrl() . '/auth/register';
     }
 
 
@@ -46,7 +52,7 @@ class ApiEndpoints
     public function header()
     {
         // Retrieve token from session
-        $token = session('user_token', '');
+        $token = session('token', '');
 
         $headers = [
             "Authorization" => "Bearer " . $token,

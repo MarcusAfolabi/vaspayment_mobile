@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthenticationController;
 
 /*
@@ -21,8 +22,10 @@ Route::controller(AuthenticationController::class)->group(
         Route::get('/login', 'login')->name('login');
         Route::get('/register', 'register')->name('register');
         Route::get('/forget-password', 'forgetPassword')->name('forget.password');
-        // Route::post('/logout', 'logout')->name('logout');
-        
+        Route::get('/reset-password', 'resetPassword')->name('reset.password');
+        Route::get('/verify-email', 'verifyEmail')->name('verify.email');
+        Route::get('/verify-email-account', 'verifyEmailAccount')->name('verify.email.account');
+        Route::post('/logout', 'logout')->name('logout')->middleware('token');  
     }
 );
 Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
@@ -33,6 +36,10 @@ Route::middleware(['token'])->group(function () {
     Route::get('virtual-account', [HomeController::class, 'virtualAccount'])->name('virtual.account');
     Route::get('airtime', [HomeController::class, 'airtime'])->name('airtime.index');
     Route::get('airtime-transactions', [HomeController::class, 'airtimeTransactions'])->name('airtime.transactions');
+});
+
+Route::middleware(['token'])->group(function () {
+    Route::get('all-transactions', [TransactionController::class, 'allTransactions'])->name('all.transactions');
 });
 
 Route::get('/nin', function () {

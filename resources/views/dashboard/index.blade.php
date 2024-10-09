@@ -4,8 +4,8 @@
     <x-header />
     @livewire('balance-card')
     <x-quick_link />
-    <x-other_services />
-    <x-ads_banner />
-    <x-latest_transactions />
+    <!-- <x-slider /> -->
+    <!-- <x-ads_banner /> -->
+    @livewire('transactions.index')
     <br>
 @endsection
