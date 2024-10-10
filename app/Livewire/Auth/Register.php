@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Livewire\Auth;
-
-use App\Models\User;
-use GuzzleHttp\Client;
+ 
 use Livewire\Component;
-use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
-use App\Services\ApiEndpoints;
-use Illuminate\Support\Facades\Log;
+use App\Services\ApiEndpoints; 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -16,6 +12,7 @@ class Register extends Component
 {
     public $email;
     public $name;
+    public $lastname;
     public $phone;
     public $password;
     public $refer_id;
@@ -28,9 +25,10 @@ class Register extends Component
 
     protected $rules = [
         'name' => 'required|string|max:50',
+        'lastname' => 'required|string|max:50',
         'email' => 'required|email|email_validation|unique:users,email',
         'phone' => 'required|digits:11|unique:users,phone',
-        'password' => 'required|password_complexity',
+        'password' => 'required',
         'agreed' => 'required',
         'refer_id' => 'nullable|digits:8|exists:wallets,wallet_id',
         'device_data' => 'required',
@@ -61,11 +59,13 @@ class Register extends Component
    public $countryCode;
     public function register()
     {
+        Session::put('user_email', $this->email);
         $this->validate();
         try {
             $response = Http::post(ApiEndpoints::register(), [
                 'email' => $this->email,
                 'name' => $this->name,
+                'lastname' => $this->lastname,
                 'phone' => $this->countryCode . (substr($this->phone, 0, 1) === '0' ? substr($this->phone, 1) : $this->phone),
                 'refer_id' => $this->refer_id,
                 'password' => $this->password,
@@ -74,16 +74,10 @@ class Register extends Component
             ]);
 
             if ($response->successful()) {
-                $data = $response->json()['user'];
-                $wallet = $response->json()['wallet'];
-                $bonus = $response->json()['bonus'];
-                $token = $response->json()['token'];
+                $data = $response->json()['user']; 
                 // Store data and token in session
-                session(['user' => $data]);
-                session(['wallet' => $wallet]);
-                session(['bonus' => $bonus]);
-                session(['token' => $token]);
-                return redirect()->to('/login');
+                session(['user' => $data]); 
+                return redirect()->to('/verify-email');
             } else {
                 $errorMessage = $response->json()['message'];
                 info($errorMessage);

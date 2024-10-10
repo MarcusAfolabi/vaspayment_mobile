@@ -7,16 +7,25 @@
             <div class="form-group">
                 <label for="name" class="form-label">First name</label>
                 <div class="form-input">
-                    <input wire:model='name' name='name' type="text" class="form-control" placeholder="Enter your name" />
+                    <input wire:model='name' type="text" class="form-control" autocomplete="name" placeholder="Enter your firstname" />
                 </div>
             </div>
             @error('name')
             <em class="text-danger">{{ $message }}</em>
             @enderror
             <div class="form-group">
+                <label for="name" class="form-label">Last name</label>
+                <div class="form-input">
+                    <input wire:model='lastname' type="text" class="form-control" autocomplete="family-name" placeholder="Enter your lastname" />
+                </div>
+            </div>
+            @error('lastname')
+            <em class="text-danger">{{ $message }}</em>
+            @enderror
+            <div class="form-group">
                 <label for="email" class="form-label">Email</label>
                 <div class="form-input">
-                    <input wire:model.lazy='email' name='email' type="email" class="form-control" placeholder="Enter your email" />
+                    <input wire:model.lazy='email' autocomplete="username" type="email" class="form-control" placeholder="Enter your email" />
                 </div>
             </div>
             @error('email')
@@ -27,15 +36,15 @@
                 <div class="input-group">
                     <select wire:model="countryCode" class="form-select">
                         <option value="">Select Country</option>
-                        <option value="234" data-flag="NG">🇳🇬 +234</option> 
+                        <option value="234" data-flag="NG">🇳🇬 +234</option>
                     </select>
-                    <input wire:model.blur='phone' maxlength="11" minlength="11" name='phone' type="tel" class="form-control" placeholder="Enter your phone" />
+                    <input wire:model.blur='phone' maxlength="11" minlength="11" autocomplete="mobile" name='phone' type="tel" class="form-control" placeholder="Enter your phone" />
                 </div>
                 @error('phone')
                 <em class="text-danger">{{ $message }}</em>
                 @enderror
             </div>
-            
+
             <style>
                 .country-select option {
                     padding-left: 30px;
@@ -57,7 +66,7 @@
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
                 <div class="form-input" style="position: relative;" x-data="{ show: false }">
-                    <input :type="show ? 'text' : 'password'" wire:model="password" name="password" class="form-control" placeholder="Enter your preferred password" style="padding-right: 45px;" />
+                    <input :type="show ? 'text' : 'password'" wire:model="password" autocomplete="new-password" name="password" class="form-control" placeholder="Enter your preferred password" style="padding-right: 45px;" />
 
                     <!-- Toggle Button -->
                     <button type="button" @click="show = !show" class="toggle-password-btn">
@@ -109,7 +118,7 @@
             </div>
             @error('agreed')
             <em class="text-danger">{{ $message }}</em>
-            @enderror 
+            @enderror
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">
                 <span wire:loading wire:target="register">Saving records...</span>
                 <span wire:loading.remove> Register</span>

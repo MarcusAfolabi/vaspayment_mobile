@@ -10,9 +10,9 @@ class ApiEndpoints
     {
         return self::baseUrl() . '/verify-nin';
     }
-    public static function VirtualFundingTransactions()
+    public static function VirtualFundingHistory()
     {
-        return self::baseUrl() . '/get-funding-transactions';
+        return self::baseUrl() . '/get-funding-history';
     }
 
     public static function userTransactions()
@@ -28,9 +28,13 @@ class ApiEndpoints
     {
         return self::baseUrl() . '/get-virtual-account';
     }
-    public static function createVirtualAccount()
+    public static function createMonnifyVirtualAccount()
     {
         return self::baseUrl() . '/monnify-virtual-account';
+    }
+    public static function createBudPayVirtualAccount()
+    {
+        return self::baseUrl() . '/budpay-virtual-account';
     }
 
     public static function dashboard()

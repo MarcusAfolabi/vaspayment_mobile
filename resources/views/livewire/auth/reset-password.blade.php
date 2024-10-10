@@ -52,12 +52,13 @@
             <em class="text-danger">{{ $message }}</em>
             @enderror
 
-           
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">
                 <span wire:loading wire:target="resetPassword">Checking records...</span>
                 <span wire:loading.remove> Continue</span>
             </button>
 
+            <h4 class="signup">Already have an account?<a wire:navigate.hover href="{{ route('login') }}"> Login</a>
+            </h4>
         </div>
     </form>
 

@@ -20,10 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Validator::extend('password_complexity', function ($attribute, $value, $parameters, $validator) {
-            return preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $value);
-        }, 'The :attribute must include a letter, a number, a special character, and be 8-16 characters long.');
-
         Validator::extend('email_validation', function ($attribute, $value, $parameters, $validator) {
             $allowedDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'];
             $domain = substr(strrchr($value, "@"), 1);

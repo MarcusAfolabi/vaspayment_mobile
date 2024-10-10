@@ -79,17 +79,17 @@ class AuthenticationController extends Controller
     }
     public function verifyEmail()
     {
-        if ($redirect = $this->checkUserAndRedirect()) {
-            return $redirect;
-        }
+        // if ($redirect = $this->checkUserAndRedirect()) {
+        //     return $redirect;
+        // }
         $this->deviceName();
         return view("auth.verify-email");
     }
     public function verifyEmailAccount()
     {
-        if ($redirect = $this->checkUserAndRedirect()) {
-            return $redirect;
-        }
+        // if ($redirect = $this->checkUserAndRedirect()) {
+        //     return $redirect;
+        // }
         $this->deviceName();
         return view("auth.verify-account-mail");
     }

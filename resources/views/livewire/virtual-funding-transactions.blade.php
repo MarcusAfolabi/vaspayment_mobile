@@ -4,7 +4,6 @@
             @if ($virtual_transactions)
                 <div class="title">
                     <h2>Funding History</h2>
-                    {{-- <a href="#">See all</a> --}}
                 </div>
             <div class="row gy-3">
                 @foreach ($virtual_transactions as $transaction)
