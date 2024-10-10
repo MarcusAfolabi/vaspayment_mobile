@@ -13,14 +13,11 @@ class BalanceCard extends Component
 
     public function mount()
     {
-        if (Session::has('token')) {
-            $userWallet = Session::get("wallet");
-            
-            $userBonus = Session::get("bonus");
-            $this->balance = $userWallet["balance"] ?? '0';
-            $this->commission = $userWallet["commission"] ?? '0';
-            $this->bonus = $userBonus['bonus'] ?? '0';
-        }
+        $userWallet = Session::get("wallet");
+        $userBonus = Session::get("bonus");
+        $this->balance = $userWallet["balance"] ?? '0';
+        $this->commission = $userWallet["commission"] ?? '0';
+        $this->bonus = $userBonus['bonus'] ?? '0';
     }
     public function render()
     {

@@ -24,6 +24,11 @@ class ApiEndpoints
     {
         return self::baseUrl() . '/get-virtual-account';
     }
+    public static function createVirtualAccount()
+    {
+        return self::baseUrl() . '/monnify-virtual-account';
+    }
+
     public static function dashboard()
     {
         return self::baseUrl() . '/auth/dashboard';
@@ -39,6 +44,10 @@ class ApiEndpoints
     public static function verifyEmail()
     {
         return self::baseUrl() . '/auth/verify-email';
+    }
+    public static function sendEmailOtp()
+    {
+        return self::baseUrl() . '/auth/send-email-otp';
     }
 
     public static function login()

@@ -109,17 +109,7 @@
             </div>
             @error('agreed')
             <em class="text-danger">{{ $message }}</em>
-            @enderror
-
-            <input hidden value="{{ $location_data }}" wire:model='location_data' />
-            @error('location_data')
-            <em class="text-danger">{{ $message }}</em>
-            @enderror
-
-            <input hidden value="{{ $device_data }}" wire:model="device_data">
-            @error('device_data')
-            <em class="text-danger">{{ $message }}</em>
-            @enderror
+            @enderror 
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">
                 <span wire:loading wire:target="register">Saving records...</span>
                 <span wire:loading.remove> Register</span>

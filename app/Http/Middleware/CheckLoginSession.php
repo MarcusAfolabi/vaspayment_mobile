@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckLoginSession
 {
-   
+
     public function handle(Request $request, Closure $next): Response
     {
         $token = Session::get("token");
@@ -19,5 +19,5 @@ class CheckLoginSession
         }
         return $next($request);
     }
-    
+
 }

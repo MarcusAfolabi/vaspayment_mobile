@@ -14,7 +14,6 @@ class All extends Component
     public function mount()
     {
         $this->userId = Session::get('user')['id'];
-        dd($this->userId);
         $this->getUserTransaction();
     }
     public function getUserTransaction()

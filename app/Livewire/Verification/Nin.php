@@ -16,6 +16,7 @@ class Nin extends Component
     protected $rules = [
         'nin' => 'required|digits:11',
     ];
+
     public function mount()
     {
         $get = Session::get('wallet');
@@ -23,6 +24,7 @@ class Nin extends Component
             $this->wallet_id = $get['id'];
         }
     }
+    
     public function verifyNIN()
     {
         $this->validate();

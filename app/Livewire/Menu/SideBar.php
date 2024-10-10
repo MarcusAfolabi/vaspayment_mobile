@@ -14,13 +14,12 @@ class SideBar extends Component
     public $logo = 'https://vaspayment.com/logo_web.png';
     public function mount()
     {
-        if (Session::has('token')) {
-            $userWallet = Session::get("wallet");
-            $userBonus = Session::get("bonus");
-            $this->balance = $userWallet["balance"] ?? '0.00';
-            $this->commission = $userWallet["commission"] ?? '0.00';
-            $this->bonus = $userBonus['bonus'] ?? '0.00';
-        }
+        $userWallet = Session::get("wallet");
+        $userBonus = Session::get("bonus");
+        $this->balance = $userWallet["balance"] ?? '0.00';
+        $this->commission = $userWallet["commission"] ?? '0.00';
+        $this->bonus = $userBonus['bonus'] ?? '0.00';
+
         $this->menuItems = [
             ["label" => "Home", "url" => "/", "icon" => asset('assets/feather/home.svg')],
             ["label" => "All Transactions", "url" => "/transactions", "icon" => asset('assets/feather/credit-card.svg')],
@@ -31,7 +30,6 @@ class SideBar extends Component
             ["label" => "WAEC Card", "url" => "/wace", "icon" => asset('assets/feather/book.svg')],
             ["label" => "Logout", "url" => "/logout", "icon" => asset('assets/feather/log-out.svg')],
         ];
-
     }
     public function render()
     {

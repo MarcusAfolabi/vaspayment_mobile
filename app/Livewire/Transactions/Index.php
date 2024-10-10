@@ -26,8 +26,6 @@ class Index extends Component
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::userTransactions());
-
-            // dd($response->json());
         if ($response->successful()) {
             $this->transactions = $response->json()['data'];
         } else {

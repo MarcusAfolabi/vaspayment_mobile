@@ -85,6 +85,14 @@ class AuthenticationController extends Controller
         $this->deviceName();
         return view("auth.verify-email");
     }
+    public function verifyEmailAccount()
+    {
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }
+        $this->deviceName();
+        return view("auth.verify-account-mail");
+    }
 
 
     public function logout(Request $request)

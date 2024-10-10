@@ -11,6 +11,10 @@ class HomeController extends Controller
     {
         return view("dashboard.index");
     }
+    public function userNotification()
+    {
+        return view("dashboard.notifications");
+    }
 
     public function virtualAccount()
     {

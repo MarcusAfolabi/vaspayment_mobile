@@ -26,13 +26,13 @@ Route::controller(AuthenticationController::class)->group(
         Route::get('/reset-password', 'resetPassword')->name('reset.password');
         Route::get('/verify-email', 'verifyEmail')->name('verify.email');
         Route::get('/verify-email-account', 'verifyEmailAccount')->name('verify.email.account');
-        Route::get('/logout', 'logout')->name('logout')->middleware('token');  
+        Route::get('/logout', 'logout')->name('logout');  
     }
 );
-Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 Route::middleware(['token'])->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('user/notification', [HomeController::class, 'userNotification'])->name('user.notification');
     Route::get('virtual-account', [HomeController::class, 'virtualAccount'])->name('virtual.account');
     Route::get('airtime', [HomeController::class, 'airtime'])->name('airtime.index');
     Route::get('airtime-transactions', [HomeController::class, 'airtimeTransactions'])->name('airtime.transactions');

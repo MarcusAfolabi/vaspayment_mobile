@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <a wire:navigate.hover href="{{ route('virtual.account') }}" class="add-money theme-color"
-                    data-bs-toggle="modal">+ Add Money</a>
+                    data-bs-toggle="modal"> Fund Wallet</a>
             </div>
         </div>
     </section>

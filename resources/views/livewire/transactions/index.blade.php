@@ -1,5 +1,7 @@
  <section>
+     @if ($transactions)
      <div class="custom-container">
+
          <div class="title">
              <h2>Transactions</h2>
              <a href="{{ route('all.transactions') }}">See more</a>
@@ -81,5 +83,11 @@
              </div>
              @endforeach
          </div>
+
      </div>
+     @else
+     <h3 class="d-block fw-normal dark-text text-center mt-3">There is no transaction record for now</h3>
+     @endif
+     <section class="panel-space"></section>
+
  </section>
