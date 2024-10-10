@@ -1,5 +1,5 @@
 <div>
-    <section class="section-b-space">
+    <!-- <section class="section-b-space">
         <div class="custom-container">
             <div class="title">
                 <h2>Today</h2>
@@ -8,20 +8,19 @@
             <ul class="notification-list">
                 <li class="notification-box">
                     <div class="notification-img">
-                        <img class="img-fluid icon" src="assets/images/person/p1.png" alt="p1" />
+                        <img class="img-fluid icon" src="{{ $notification['image'] ?? '' }}" alt="p1" />
                     </div>
                     <div class="notification-details">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <a href="receive-money.html">
-                                    <h5 class="fw-semibold dark-text">Payment received</h5>
+                                    <h5 class="fw-semibold dark-text">TITLE </h5>
                                 </a>
-                                <h6 class="fw-normal light-text mt-1">Dianne Christian</h6>
                             </div>
                             <h6 class="time fw-normal light-text">9:02 pm</h6>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <h5 class="dark-text fw-normal">You received payment of <span class="fw-semibold theme-color">$25.85</span></h5>
+                            <h5 class="dark-text fw-normal">message here <span class="fw-semibold theme-color">$25.85</span></h5>
                         </div>
                     </div>
                 </li>
@@ -108,5 +107,67 @@
                 </li>
             </ul>
         </div>
+    </section> -->
+    <section class="section-b-space">
+        <div class="custom-container">
+            <!-- Display Today Notifications -->
+            @if (!empty($groupedNotifications['today']))
+            <div class="title">
+                <h2>Today</h2>
+            </div>
+            <ul class="notification-list">
+                @foreach ($groupedNotifications['today'] as $notification)
+                <li class="notification-box">
+                    <div class="notification-img">
+                        <img class="img-fluid icon" src="{{ $notification['image'] ?? '' }}" alt="p1" />
+                    </div>
+                    <div class="notification-details">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="receive-money.html">
+                                    <h5 class="fw-semibold dark-text">{{ $notification['title'] }}</h5>
+                                </a>
+                            </div>
+                            <h6 class="time fw-normal light-text">{{ Carbon\Carbon::parse($notification['created_at'])->format('h:i A') }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <h5 class="dark-text fw-normal">{{ $notification['message'] }}</h5>
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+            @endif
+
+            <!-- Display Yesterday Notifications -->
+            @if (!empty($groupedNotifications['yesterday']))
+            <div class="title mt-4">
+                <h2>Yesterday</h2>
+            </div>
+            <ul class="notification-list">
+                @foreach ($groupedNotifications['yesterday'] as $notification)
+                <li class="notification-box">
+                    <div class="notification-img">
+                        <img class="img-fluid icon" src="{{ $notification['image'] ?? '' }}" alt="p1" />
+                    </div>
+                    <div class="notification-details">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="receive-money.html">
+                                    <h5 class="fw-semibold dark-text">{{ $notification['title'] }}</h5>
+                                </a>
+                            </div>
+                            <h6 class="time fw-normal light-text">{{ \Carbon\Carbon::parse($notification['created_at'])->format('h:i A') }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <h5 class="dark-text fw-normal">{{ $notification['message'] }}</h5>
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+            @endif
+        </div>
     </section>
+
 </div>

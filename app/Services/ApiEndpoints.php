@@ -19,6 +19,10 @@ class ApiEndpoints
     {
         return self::baseUrl() . '/get-latest-transactions';
     }
+    public static function userNotification()
+    {
+        return self::baseUrl() . '/get-user-notifications';
+    }
 
     public static function virtualAccount()
     {
