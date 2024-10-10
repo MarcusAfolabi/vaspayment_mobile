@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label for="name" class="form-label">First name</label>
                 <div class="form-input">
-                    <input wire:model='name' name='name' type="text" class="form-control" placeholder="Enter Your Name" />
+                    <input wire:model='name' name='name' type="text" class="form-control" placeholder="Enter your name" />
                 </div>
             </div>
             @error('name')
@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
                 <div class="form-input">
-                    <input wire:model.lazy='email' name='email' type="email" class="form-control" placeholder="Enter Your Email" />
+                    <input wire:model.lazy='email' name='email' type="email" class="form-control" placeholder="Enter your email" />
                 </div>
             </div>
             @error('email')
@@ -27,23 +27,15 @@
                 <div class="input-group">
                     <select wire:model="countryCode" class="form-select">
                         <option value="">Select Country</option>
-                        <option value="234" data-flag="NG">🇳🇬 +234</option>
-                        <!-- <option value="254" data-flag="KE">🇰🇪 +254</option>
-                        <option value="233" data-flag="GH">🇬🇭 +233</option>
-                        <option value="27" data-flag="ZA">🇿🇦 +27</option>
-                        <option value="255" data-flag="TZ">🇹🇿 +255</option>
-                        <option value="256" data-flag="UG">🇺🇬 +256</option>
-                        <option value="250" data-flag="RW">🇷🇼 +250</option>
-                        <option value="265" data-flag="MW">🇲🇼 +265</option>
-                        <option value="237" data-flag="CM">🇨🇲 +237</option>
-                        <option value="261" data-flag="MG">🇲🇬 +261</option> -->
+                        <option value="234" data-flag="NG">🇳🇬 +234</option> 
                     </select>
-                    <input wire:model.blur='phone' maxlength="10" name='phone' type="tel" class="form-control" placeholder="Enter Your Phone" />
+                    <input wire:model.blur='phone' maxlength="11" minlength="11" name='phone' type="tel" class="form-control" placeholder="Enter your phone" />
                 </div>
                 @error('phone')
                 <em class="text-danger">{{ $message }}</em>
                 @enderror
             </div>
+            
             <style>
                 .country-select option {
                     padding-left: 30px;
@@ -58,13 +50,14 @@
                     <input type="number" id="refer_id" inputmode="numeric" placeholder="e.g 12345678" wire:model.lazy="refer_id" class="form-control" oninput="this.value = this.value.slice(0, 8);">
                 </div>
             </div>
+
             @error('refer_id')
             <em class="text-danger">{{ $message }}</em>
             @enderror
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
                 <div class="form-input" style="position: relative;" x-data="{ show: false }">
-                    <input :type="show ? 'text' : 'password'" wire:model="password" name="password" class="form-control" placeholder="Enter Your preferred password" style="padding-right: 45px;" />
+                    <input :type="show ? 'text' : 'password'" wire:model="password" name="password" class="form-control" placeholder="Enter your preferred password" style="padding-right: 45px;" />
 
                     <!-- Toggle Button -->
                     <button type="button" @click="show = !show" class="toggle-password-btn">

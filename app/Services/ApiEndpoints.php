@@ -32,6 +32,14 @@ class ApiEndpoints
     {
         return self::baseUrl() . '/auth/forget-password';
     }
+    public static function resetPassword()
+    {
+        return self::baseUrl() . '/auth/reset-password';
+    }
+    public static function verifyEmail()
+    {
+        return self::baseUrl() . '/auth/verify-email';
+    }
 
     public static function login()
     {

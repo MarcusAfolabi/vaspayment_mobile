@@ -5,7 +5,7 @@
     @livewire('balance-card')
     <x-quick_link />
     <!-- <x-slider /> -->
-    <!-- <x-ads_banner /> -->
+    <x-ads_banner />
     @livewire('transactions.index')
     <br>
 @endsection

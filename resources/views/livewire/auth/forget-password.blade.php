@@ -8,7 +8,7 @@
                 <label for="email" class="form-label">Email</label>
                 <div class="form-input">
                     <input wire:model.lazy='email' name='email' type="email" class="form-control"
-                        placeholder="Enter Your Email" />
+                        placeholder="Enter your email" />
                 </div>
             </div>
             @error('email')
@@ -23,7 +23,7 @@
 
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100" >
                 <span wire:loading wire:target="forget">Sending mail...</span>
-                <span wire:loading.remove> Send Reset Link</span>
+                <span wire:loading.remove> Send reset otp</span>
             </button>
             <h4 class="signup">Don't have an account?<a wire:navigate.hover href="{{ route('register') }}"> Register</a></h4>
         </div>

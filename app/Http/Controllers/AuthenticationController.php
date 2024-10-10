@@ -19,8 +19,8 @@ class AuthenticationController extends Controller
     protected function checkUserAndRedirect()
     {
         $token = Session::get("token");
-        if ($token) {
-            return redirect()->to('/welcome');
+        if ($token != null) {
+            return redirect()->route('dashboard');
         }
         return null;
     }
@@ -29,43 +29,63 @@ class AuthenticationController extends Controller
     {
         try {
             $device_name = $this->deviceService->getDeviceName();
-            if ($redirect = $this->checkUserAndRedirect()) {
-                return $redirect;
-            }
             Session::put('device_name', $device_name);
         } catch (\Throwable $th) {
             Log::error('Error in deviceName: ' . $th->getMessage());
         }
     }
 
+    public function home()
+    {
+        $this->deviceName();
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }
+        return view("welcome");
+    }
     public function login()
     {
         $this->deviceName();
-        return view("auth.login");
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }        return view("auth.login");
     }
 
     public function register()
     {
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }
         $this->deviceName();
         return view("auth.register");
     }
 
     public function forgetPassword()
     {
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }
         $this->deviceName();
         return view("auth.forget-password");
     }
 
     public function resetPassword()
     {
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }
         $this->deviceName();
         return view("auth.reset-password");
     }
     public function verifyEmail()
     {
+        if ($redirect = $this->checkUserAndRedirect()) {
+            return $redirect;
+        }
         $this->deviceName();
         return view("auth.verify-email");
     }
+
 
     public function logout(Request $request)
     {

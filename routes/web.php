@@ -19,19 +19,19 @@ use App\Http\Controllers\AuthenticationController;
 
 Route::controller(AuthenticationController::class)->group(
     function () {
+        Route::get('/', 'home')->name('home');
         Route::get('/login', 'login')->name('login');
         Route::get('/register', 'register')->name('register');
         Route::get('/forget-password', 'forgetPassword')->name('forget.password');
         Route::get('/reset-password', 'resetPassword')->name('reset.password');
         Route::get('/verify-email', 'verifyEmail')->name('verify.email');
         Route::get('/verify-email-account', 'verifyEmailAccount')->name('verify.email.account');
-        Route::post('/logout', 'logout')->name('logout')->middleware('token');  
+        Route::get('/logout', 'logout')->name('logout')->middleware('token');  
     }
 );
 Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 Route::middleware(['token'])->group(function () {
-    Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('virtual-account', [HomeController::class, 'virtualAccount'])->name('virtual.account');
     Route::get('airtime', [HomeController::class, 'airtime'])->name('airtime.index');

@@ -21,7 +21,6 @@ class Register extends Component
     public $refer_id;
     public $agreed;
     public $device_data;
-    public $location_data;
     public $ip;
     public $key;
     public $errorMessage;
@@ -30,17 +29,28 @@ class Register extends Component
     protected $rules = [
         'name' => 'required|string|max:50',
         'email' => 'required|email|email_validation|unique:users,email',
-        'phone' => 'required|digits:10|unique:users,phone',
+        'phone' => 'required|digits:11|unique:users,phone',
         'password' => 'required|password_complexity',
         'agreed' => 'required',
         'refer_id' => 'nullable|digits:8|exists:wallets,wallet_id',
-        'location_data' => 'required',
         'device_data' => 'required',
     ];
 
     public function mount(Request $request)
     {
         $this->device_data = Session::get('device_name');
+    }
+
+    public function updatedPhone($phone)
+    {
+        // Check if the phone number starts with '0'
+        if (substr($phone, 0, 1) === '0') {
+            // Remove the first character (0) and return the rest
+            return substr($phone, 1);
+        }
+
+        // Return the phone number unchanged if it doesn't start with '0'
+        return $phone;
     }
 
     public function updated($propertyName)
@@ -56,10 +66,9 @@ class Register extends Component
             $response = Http::post(ApiEndpoints::register(), [
                 'email' => $this->email,
                 'name' => $this->name,
-                'phone' => $this->countryCode . $this->phone,
+                'phone' => $this->countryCode . (substr($this->phone, 0, 1) === '0' ? substr($this->phone, 1) : $this->phone),
                 'refer_id' => $this->refer_id,
                 'password' => $this->password,
-                'location_data' => $this->location_data,
                 'device_data' => $this->device_data,
                 'currency' => "₦",
             ]);
@@ -74,8 +83,7 @@ class Register extends Component
                 session(['wallet' => $wallet]);
                 session(['bonus' => $bonus]);
                 session(['token' => $token]);
-                info($response->json());
-                return redirect()->to('/dashboard');
+                return redirect()->to('/login');
             } else {
                 $errorMessage = $response->json()['message'];
                 info($errorMessage);

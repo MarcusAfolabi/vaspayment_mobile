@@ -29,6 +29,7 @@ class SideBar extends Component
             ["label" => "Cable", "url" => "/cable", "icon" => asset('assets/feather/tv.svg')],
             ["label" => "Electricity", "url" => "/electricity", "icon" => asset('assets/feather/zap.svg')],
             ["label" => "WAEC Card", "url" => "/wace", "icon" => asset('assets/feather/book.svg')],
+            ["label" => "Logout", "url" => "/logout", "icon" => asset('assets/feather/log-out.svg')],
         ];
 
     }
