@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 class All extends Component
 {
     public $userId;
+    public $search; 
     public $transactions = [];
     public function mount()
     {
@@ -20,6 +21,7 @@ class All extends Component
     {
         $body = [
             'user_id' => $this->userId,
+            'search' => $this->search,
         ];
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();
@@ -32,6 +34,7 @@ class All extends Component
             $this->addError('error', 'Unable to fetch your virtual account');
         }
     }
+ 
     public function render()
     {
         return view('livewire.transactions.all');

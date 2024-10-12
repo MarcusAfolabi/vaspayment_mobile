@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Local extends Component
 {
-    public $network = [
+    public $networks = [
         "MTN","AIRTEL",
         "GLO", "9MOBILE",
     ];

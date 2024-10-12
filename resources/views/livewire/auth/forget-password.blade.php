@@ -7,12 +7,11 @@
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
                 <div class="form-input">
-                    <input wire:model.lazy='email' name='email' type="email" class="form-control"
-                        placeholder="Enter your email" />
+                    <input wire:model.lazy='email' name='email' type="email" class="form-control" placeholder="Enter your email" />
                 </div>
             </div>
             @error('email')
-                <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="remember-option mt-3">
                 <div hidden class="form-check">
@@ -21,7 +20,7 @@
                 </div>
             </div>
 
-            <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100" >
+            <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">
                 <span wire:loading wire:target="forget">Sending mail...</span>
                 <span wire:loading.remove> Send reset otp</span>
             </button>

@@ -12,58 +12,28 @@ use Illuminate\Support\Facades\Cache;
 class VirtualAccount extends Component
 {
 
-    public $accounts;
-    public $fundingTransactions;
+    public $transactions;
     public $nin;
     public $bvn;
     public $user;
-    public $create_virtual_account_form;
+    public $create_virtual_account_form = false;
+    public $virtualAccount;
 
 
     public function mount()
     {
         $this->user = Session::get("user");
         $user = $this->user;
-        $this->create_virtual_account_form = false;
-        $cacheKey = "virtual_account_" . $user['id'];
         
-        $this->accounts = Cache::remember($cacheKey, 60 * 24 * 60, function () use ($user) {
-            return $this->fetchVirtualAccountFromAPI($user);
-        });
-        
-        if (empty($this->accounts)) {
+        $this->virtualAccount = Session::get("virtualAccount");    
+        if ($this->virtualAccount === []) {
             $this->addError('bvn', 'Enter your BVN to create your virtual account');
             $this->create_virtual_account_form = true;
         } else {
-            // User already has a virtual account, show funding transactions
             $this->fundingTransactions();
             $this->addError('bvn', 'Fund your wallet with any of this account number');
         }
-    }
-
-
-    private function fetchVirtualAccountFromAPI($user)
-    {
-        try {
-            $body = [
-                'user_id' => $user['id'],
-            ];
-
-            $apiEndpoints = new ApiEndpoints();
-            $headers = $apiEndpoints->header();
-            $response = Http::withHeaders($headers)
-                ->withBody(json_encode($body), 'application/json')
-                ->get(ApiEndpoints::virtualAccount());
-            if ($response->successful()) {
-                return $response->json()['data'];
-            }
-        } catch (\Throwable $e) {
-            Log::error($e->getMessage());
-            $this->addError('error', 'Internet connection error occurred. Please try again later');
-            return null;
-        }
-        return null;
-    }
+    } 
 
     private function fundingTransactions()
     {
@@ -76,7 +46,7 @@ class VirtualAccount extends Component
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::VirtualFundingHistory());
         if ($response->successful()) {
-            $this->fundingTransactions = $response->json()['data'];
+            $this->transactions = $response->json()['data'];
         } else {
             $this->addError('error', 'Unable to fetch your virtual account');
         }

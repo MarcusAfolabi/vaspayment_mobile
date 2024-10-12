@@ -11,9 +11,9 @@
                 </div>
             </div>
             @error('email_otp')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
-  
+
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">
                 <span wire:loading wire:target="confirmEmail">Confirming otp...</span>
                 <span wire:loading.remove> Confirm Email</span>

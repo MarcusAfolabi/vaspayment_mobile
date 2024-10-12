@@ -29,25 +29,28 @@ class Login extends Component
    
     public function login()
     {
-        $this->validate();
+       $this->validate();
         try {
-            $response = Http::post(ApiEndpoints::login(), [
+            $body = [
                 'email' => $this->email,
                 'password' => $this->password,
                 'device_data' => $this->device_data,
-            ]);
+            ];
+         
+            $response = Http::get(ApiEndpoints::login(), $body);
 
-            // dd($response->json());
             if ($response->successful()) {
                 $data = $response->json()['user'];
                 $wallet = $response->json()['wallet'];
                 $bonus = $response->json()['bonus'];
                 $token = $response->json()['token'];
+                $virtualAccount = $response->json()['virtualAccount'];
                 // Store data and token in session
                 session(['user' => $data]);
                 session(['wallet' => $wallet]);
                 session(['bonus' => $bonus]);
                 session(['token' => $token]);
+                session(['virtualAccount' => $virtualAccount]);
                 return redirect()->to('/dashboard');
             } else {
                 $this->addError('password', $response->json()['message']);

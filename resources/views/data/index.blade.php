@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Buy Airtime')
+@section('title', 'Buy Data Bundle')
 @section('main')
 <x-virtual_header />
-@livewire('airtime.index')
+@livewire('data.index')
 <br>
 @endsection

@@ -11,7 +11,7 @@
                 </div>
             </div>
             @error('email')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
 
             <div class="form-group">
@@ -26,7 +26,6 @@
                 </div>
             </div>
             <style>
-                /* Styling for the toggle button */
                 .toggle-password-btn {
                     position: absolute;
                     right: 10px;
@@ -40,20 +39,17 @@
                     padding: 0;
                 }
 
-                /* Optional: Hover effect */
                 .toggle-password-btn:hover {
                     color: #0056b3;
                 }
 
-                /* Adjust input padding for the toggle button */
                 .form-control {
                     padding-right: 45px;
-                    /* Ensures space for the button inside the input field */
                 }
             </style>
 
             @error('password')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
 
             <div class="remember-option mt-3">
@@ -70,7 +66,7 @@
                 <span wire:loading.remove> Login</span>
             </button>
             <h6 class="signup mt-4 mb-4">Email verification? <a wire:navigate.hover class="signup" href="{{ route('verify.email.account') }}">Verify now</a></h6>
-                <h4 class="signup">Don't have an account?<a wire:navigate.hover href="{{ route('register') }}"> Register</a></h4>
+            <h4 class="signup">Don't have an account?<a wire:navigate.hover href="{{ route('register') }}"> Register</a></h4>
         </div>
     </form>
 </div>

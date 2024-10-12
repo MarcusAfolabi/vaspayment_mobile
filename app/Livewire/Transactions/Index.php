@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 class Index extends Component
 {
     public $userId;
+ 
     public $transactions = [];
     public function mount()
     {
@@ -20,6 +21,7 @@ class Index extends Component
     {
         $body = [
             'user_id' => $this->userId,
+           
         ];
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();

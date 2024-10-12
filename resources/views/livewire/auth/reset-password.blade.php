@@ -11,7 +11,7 @@
                 </div>
             </div>
             @error('email_code')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
 
             <div class="form-group">
@@ -49,7 +49,7 @@
             </style>
 
             @error('password')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
 
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">

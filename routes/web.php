@@ -34,8 +34,12 @@ Route::middleware(['token'])->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('user/notification', [HomeController::class, 'userNotification'])->name('user.notification');
     Route::get('virtual-account', [HomeController::class, 'virtualAccount'])->name('virtual.account');
+   
     Route::get('airtime', [HomeController::class, 'airtime'])->name('airtime.index');
     Route::get('airtime-transactions', [HomeController::class, 'airtimeTransactions'])->name('airtime.transactions');
+    
+    Route::get('data', [HomeController::class, 'data'])->name('data.index');
+    Route::get('data-transactions', [HomeController::class, 'dataTransactions'])->name('data.transactions');
 });
 
 Route::middleware(['token'])->group(function () {

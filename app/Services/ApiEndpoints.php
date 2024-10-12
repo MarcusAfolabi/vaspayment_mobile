@@ -6,6 +6,11 @@ use App\Models\Key;
 
 class ApiEndpoints
 {
+    public static function buyLocalAirtime()
+    {
+        return self::baseUrl() . '/buy-local-airtime';
+    }
+    
     public static function verifyNIN()
     {
         return self::baseUrl() . '/verify-nin';

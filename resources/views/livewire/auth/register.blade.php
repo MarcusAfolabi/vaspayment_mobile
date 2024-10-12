@@ -11,7 +11,7 @@
                 </div>
             </div>
             @error('name')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="form-group">
                 <label for="name" class="form-label">Last name</label>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             @error('lastname')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             @error('email')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="form-group">
                 <label for="phone" class="form-label">Phone</label>
@@ -41,7 +41,7 @@
                     <input wire:model.blur='phone' maxlength="11" minlength="11" autocomplete="mobile" name='phone' type="tel" class="form-control" placeholder="Enter your phone" />
                 </div>
                 @error('phone')
-                <em class="text-danger">{{ $message }}</em>
+                <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -61,7 +61,7 @@
             </div>
 
             @error('refer_id')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
@@ -76,7 +76,7 @@
             </div>
 
             @error('password')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <style>
                 /* Styling for the toggle button */
@@ -108,7 +108,7 @@
 
 
             @error('error')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="remember-option mt-3">
                 <div class="form-check">
@@ -117,7 +117,7 @@
                 </div>
             </div>
             @error('agreed')
-            <em class="text-danger">{{ $message }}</em>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
             <button type="submit" wire:loading.attr="disabled" class="btn theme-btn w-100">
                 <span wire:loading wire:target="register">Saving records...</span>

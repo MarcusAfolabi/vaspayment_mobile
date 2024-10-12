@@ -33,7 +33,7 @@
              <ul class="link-section">
                  @foreach($menuItems as $item)
                  <li>
-                     <a href="{{ $item['url'] }}" class="menu-item">
+                     <a wire:navigate href="{{ $item['url'] }}" class="menu-item">
                          <img src="{{ $item['icon'] }}" alt="{{ $item['label'] }} Icon" width="24" height="24">
                          {{ $item['label'] }}
                      </a>

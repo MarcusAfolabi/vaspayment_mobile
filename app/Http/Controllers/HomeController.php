@@ -25,4 +25,16 @@ class HomeController extends Controller
     {
         return view("airtime.index");
     }
+    public function airtimeTransactions()
+    {
+        return view("airtime.transactions");
+    }
+    public function data()
+    {
+        return view("data.index");
+    }
+    public function dataTransactions()
+    {
+        return view("data.transactions");
+    }
 }

@@ -22,7 +22,7 @@ class SideBar extends Component
 
         $this->menuItems = [
             ["label" => "Home", "url" => "/", "icon" => asset('assets/feather/home.svg')],
-            ["label" => "All Transactions", "url" => "/transactions", "icon" => asset('assets/feather/credit-card.svg')],
+            ["label" => "All Transactions", "url" => "/all-transactions", "icon" => asset('assets/feather/credit-card.svg')],
             ["label" => "Airtime", "url" => "/airtime", "icon" => asset('assets/feather/smartphone.svg')],
             ["label" => "Data", "url" => "/data", "icon" => asset('assets/feather/wifi.svg')],
             ["label" => "Cable", "url" => "/cable", "icon" => asset('assets/feather/tv.svg')],

@@ -43,86 +43,64 @@
         @endif
         @yield('main')
         @livewireScripts
-        <!-- <style>
-            .message-alert-style1 {
-                position: fixed;
-                top: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 9999;
-            }
 
-            .alert {
-                width: 300px;
-                text-align: center;
-                /* Optional: Center text */
-            }
-        </style> -->
-        <!-- <div class="message-alert-style1 message-alart-style1"> -->
-
-            @if (session('error'))
-            <!-- <div class="fw-semibold bg-white alert alart_style_three alart_style_one alert-dismissible fade show mb20" role="alert" style="color: #C58B4B;">
-                {{ session('error') }}
-                <i class="far fa-xmark btn-close" data-bs-dismiss="alert" aria-label="Close"></i>
-            </div> -->
-            <div class="modal error-modal fade" id="error" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title">Oops!</h2>
-                        </div>
-                        <div class="modal-body">
-                            <div class="error-img">
-                                <img class="img-fluid" src="assets/images/svg/error.svg" alt="error" />
-                            </div>
-                            <h3> {{ session('error') }}</h3>
-                             
-                        </div>
-                        <button type="button" class="btn close-btn" data-bs-dismiss="modal">
-                            <i class="icon" data-feather="x"></i>
-                        </button>
+        {{-- Error Modal --}}
+        @if (session('error'))
+        <div class="modal error-modal fade" id="error" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Oops!</h2>
                     </div>
+                    <div class="modal-body">
+                        <div class="error-img">
+                            <img class="img-fluid" src="assets/images/svg/error.svg" alt="error" />
+                        </div>
+                        <h3>{{ session('error') }}</h3>
+                    </div>
+                    <button type="button" class="btn close-btn" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="icon" data-feather="x"></i>
+                    </button>
                 </div>
             </div>
-            @endif
-            @if (session('success'))
-            <!-- <div class="fw-semibold alert alert_style_one alart_style_one alert-dismissible fade show mb20" role="alert" style="background-color: #C58B4B; color: white;">
-                {{ session('success') }}
-                <i class="far fa-xmark btn-close" data-bs-dismiss="alert" aria-label="Close"></i>
-            </div> -->
-            <div class="modal successful-modal fade" id="done" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title">Successfully</h2>
-                        </div>
-                        <div class="modal-body">
-                            <div class="done-img">
-                                <img class="img-fluid" src="assets/images/svg/done.svg" alt="done" />
-                            </div>
-                            <h3 class="pb-0"> {{ session('success') }}</h3>
-                        </div>
-                        <button type="button" class="btn close-btn" data-bs-dismiss="modal">
-                            <i class="icon" data-feather="x"></i>
-                        </button>
+        </div>
+        @endif
+
+        {{-- Success Modal --}}
+        @if (session('success'))
+        <div class="modal successful-modal fade" id="done" tabindex="-1" aria-labelledby="doneModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Successfully</h2>
                     </div>
+                    <div class="modal-body">
+                        <div class="done-img">
+                            <img class="img-fluid" src="assets/images/svg/done.svg" alt="done" />
+                        </div>
+                        <h3 class="pb-0">{{ session('success') }}</h3>
+                    </div>
+                    <button type="button" class="btn close-btn" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="icon" data-feather="x"></i>
+                    </button>
                 </div>
             </div>
-            @endif
+        </div>
+        @endif
 
-        <!-- </div> -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    let alerts = document.querySelectorAll('.alert');
-                    alerts.forEach(function(alert) {
-                        alert.classList.remove('show');
-                        alert.classList.add('fade');
-                    });
-                }, 3500); // 4000 milliseconds = 4 seconds
+                @if(session('error'))
+                var errorModal = new bootstrap.Modal(document.getElementById('error'));
+                errorModal.show();
+                @elseif(session('success'))
+                var successModal = new bootstrap.Modal(document.getElementById('done'));
+                successModal.show();
+                @endif
             });
         </script>
 
+ 
         <script rel="preload" src="{{ asset('assets/js/swiper-bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
         <script rel="preload" src="{{ asset('assets/js/custom-swiper.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
         <script rel="preload" src="{{ asset('assets/js/feather.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
@@ -134,7 +112,7 @@
         <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
         </script>
 
- 
+
     </body>
 
 </html>
