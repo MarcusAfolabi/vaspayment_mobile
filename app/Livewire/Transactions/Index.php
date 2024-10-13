@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Session;
 class Index extends Component
 {
     public $userId;
+    public $userName;
  
     public $transactions = [];
     public function mount()
     {
         $this->userId = Session::get('user')['id'];
+        $this->userName = Session::get('user')['name'];
         $this->getUserTransaction();
     }
     public function getUserTransaction()

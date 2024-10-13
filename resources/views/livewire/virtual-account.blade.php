@@ -29,8 +29,6 @@
   </section>
   @endif
 
-
-
   @if ($virtualAccount['wema_no'])
   <section>
     <div class="custom-container">

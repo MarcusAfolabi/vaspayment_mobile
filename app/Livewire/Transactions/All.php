@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Session;
 class All extends Component
 {
     public $userId;
-    public $search; 
+    public $search;
     public $transactions = [];
+    public $userName;
     public function mount()
     {
         $this->userId = Session::get('user')['id'];
+        $this->userName = Session::get('user')['name'];
         $this->getUserTransaction();
     }
     public function getUserTransaction()
@@ -34,7 +36,7 @@ class All extends Component
             $this->addError('error', 'Unable to fetch your virtual account');
         }
     }
- 
+
     public function render()
     {
         return view('livewire.transactions.all');

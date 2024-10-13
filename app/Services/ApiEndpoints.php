@@ -6,9 +6,37 @@ use App\Models\Key;
 
 class ApiEndpoints
 {
+    public static function buyDataBundle()
+    {
+        return self::baseUrl() . '/buy-data-bundle';
+    }
+    public static function dataBundles()
+    {
+        return self::baseUrl() . '/get-data-bundles';
+    }
+    public static function dataNetworks()
+    {
+        return self::baseUrl() . '/get-data-networks';
+    }
     public static function buyLocalAirtime()
     {
-        return self::baseUrl() . '/buy-local-airtime';
+        return self::baseUrl() . '/buy-airtime';
+    }
+    public static function saveBeneficiary()
+    {
+        return self::baseUrl() . '/save-beneficiary';
+    }
+    public static function beneficiaries()
+    {
+        return self::baseUrl() . '/get-beneficiaries';
+    }
+    public static function DataTransactions()
+    {
+        return self::baseUrl() . '/get-data-transactions';
+    }
+    public static function airtimeTransactions()
+    {
+        return self::baseUrl() . '/get-airtime-transactions';
     }
     
     public static function verifyNIN()

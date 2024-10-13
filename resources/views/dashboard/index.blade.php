@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Welcome')
 @section('main')
-    <x-header />
+    <x-main_header />
     @livewire('balance-card')
     <x-quick_link />
     <!-- <x-slider /> -->

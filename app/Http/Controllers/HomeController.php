@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
- 
+
     public function index()
     {
         return view("dashboard.index");
@@ -36,5 +36,21 @@ class HomeController extends Controller
     public function dataTransactions()
     {
         return view("data.transactions");
+    }
+    public function cable()
+    {
+        return view("cable.index");
+    }
+    public function cableTransactions()
+    {
+        return view("cable.transactions");
+    }
+    public function power()
+    {
+        return view("power.index");
+    }
+    public function powerTransactions()
+    {
+        return view("power.transactions");
     }
 }

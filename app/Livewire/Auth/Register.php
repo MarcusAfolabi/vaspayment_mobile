@@ -74,9 +74,8 @@ class Register extends Component
             ]);
 
             if ($response->successful()) {
-                $data = $response->json()['user']; 
-                // Store data and token in session
-                session(['user' => $data]); 
+                $data = $response->json(); 
+                Session::flash('success', $data['message']);
                 return redirect()->to('/verify-email');
             } else {
                 $errorMessage = $response->json()['message'];

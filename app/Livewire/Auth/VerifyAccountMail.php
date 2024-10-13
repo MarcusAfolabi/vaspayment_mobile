@@ -30,8 +30,8 @@ class VerifyAccountMail extends Component
 
             if ($response->successful()) {
                 $info = $response->json('message');
-                Session::flash('success', $info);
                 Session::put('user_email', $this->email);
+                Session::flash('success', $info);
                 return redirect()->to('/verify-email');
             } else {
                 $info = $response->body();

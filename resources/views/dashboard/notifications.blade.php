@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Notifications')
 @section('main')
-<x-back />
+<x-header />
 @livewire('notification.index')
 @endsection

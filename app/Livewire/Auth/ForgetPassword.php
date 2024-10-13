@@ -20,7 +20,7 @@ class ForgetPassword extends Component
     {
         $this->device_data = Session::get('device_name');
     }
-   
+
     public function forget()
     {
         try {
@@ -29,8 +29,8 @@ class ForgetPassword extends Component
                 'email' => $this->email,
                 'device_data' => $this->device_data,
             ]);
-            if ($response->successful()) { 
-                  session(['user_forget_email' => $this->email]);
+            if ($response->successful()) {
+                session(['user_forget_email' => $this->email]);
                 Session::flash("success", $response->json()['message']);
                 return redirect('/reset-password');
             } else {

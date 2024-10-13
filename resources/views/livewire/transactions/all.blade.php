@@ -8,6 +8,7 @@
             <input type="search" wire:model.live='search' placeholder="Search your transactions" class="form-control px-5" />
             <img src="{{ asset('assets/feather/search.svg') }}" alt="Search" class="search-icon" />
         </div>
+        
         <style>
             .position-relative {
                 position: relative;
@@ -50,7 +51,7 @@
 
             @foreach ($groupedTransactions as $dateLabel => $transactions)
             <div class="title justify-content-end">
-                <h2>{{ $dateLabel }}</h2> <!-- Display the date group -->
+                <h2>{{ $dateLabel }}</h2>
             </div>
 
             @foreach ($transactions as $transaction)
@@ -61,18 +62,18 @@
 
             <div class="col-12">
                 <div class="transaction-box">
-                    <a href="#" class="d-flex gap-3">
+                    <a href="#all-detail-{{ $transaction['id'] }}" data-bs-toggle="modal" class="d-flex gap-3">
                         <div class="transaction-image">
-                            @if ($transaction['network'] == 'MTN' || $transaction['network'] == 'MTN CG' || $transaction['network'] == 'MTN SME' || $transaction['network'] == 'MTN SME2' || $transaction['network'] == 'MTN DG')
-                            <img class="img-fluid transaction-icon" style="width: 40px; height: 40px;" src="https://mcusercontent.com/bc4757f5630fae4685e6bed63/images/6c4afd16-a0df-b745-d0a3-b31a2d5e4d42.png">
-                            @elseif ($transaction['network'] == 'GLO' || $transaction['network'] == 'GLO CG')
-                            <img style="width: 40px; height: 40px;" src="https://mcusercontent.com/bc4757f5630fae4685e6bed63/images/a20c3339-3def-d815-f61b-92d965b19f29.png">
-                            @elseif ($transaction['network'] == '9MOBILE' || $transaction['network'] == '9MOBILE CG')
-                            <img style="width: 40px; height: 40px;" src="https://mcusercontent.com/bc4757f5630fae4685e6bed63/images/ca4bcec0-c996-f3cb-8c4b-fba81d2689c8.png">
-                            @elseif ($transaction['network'] == 'AIRTEL DG' || $transaction['network'] == 'AIRTEL CG' || $transaction['network'] == 'AIRTEL')
-                            <img style="width: 40px; height: 40px;" src="https://mcusercontent.com/bc4757f5630fae4685e6bed63/images/93794ad5-0c13-1019-e12c-b65bf9fa235b.png">
+                            @if ($transaction['network'] == 'MTN')
+                            <img src="{{ asset('assets/images/networks/mtn.png') }}" style="height: 30px; width: 30px;" />
+                            @elseif ($transaction['network'] == 'AIRTEL')
+                            <img src="{{ asset('assets/images/networks/airtel.png') }}" style="height: 30px; width: 30px;" />
+                            @elseif ($transaction['network'] == 'GLO')
+                            <img src="{{ asset('assets/images/networks/glo.png') }}" style="height: 30px; width: 30px;" />
+                            @elseif ($transaction['network'] == '9MOBILE')
+                            <img src="{{ asset('assets/images/networks/9mobile.png') }}" style="height: 30px; width: 30px;" />
                             @else
-                            <img style="width: 40px; height: 40px;" src="https://mcusercontent.com/bc4757f5630fae4685e6bed63/images/ca118e83-b696-4f3b-8769-975b004454b6.png">
+                            <img src="{{ asset('assets/images/logo/favicon.png') }}" style="height: 30px; width: 30px;" />
                             @endif
                         </div>
 
@@ -89,6 +90,51 @@
                             </div>
                         </div>
                     </a>
+                </div>
+            </div>
+            @php
+            $createdAt = \Carbon\Carbon::parse($transaction['created_at']);
+            @endphp
+            <div class="modal successful-modal transfer-details fade" id="all-detail-{{ $transaction['id'] }}" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Transaction Detail</h2>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="details-list">
+                                <li>
+                                    <h3 class="fw-normal dark-text">Payment status</h3>
+                                    <h3 class="fw-bold success-color">Success</h3>
+                                </li>
+                                <li>
+                                    <h3 class="fw-normal dark-text">Date</h3>
+                                    <h3 class="fw-normal light-text">{{ $createdAt->format('d F, Y') }}</h3>
+                                </li>
+                                <li>
+                                    <h3 class="fw-normal dark-text">Sender</h3>
+                                    <h3 class="fw-normal light-text">You ({{ $userName }})</h3>
+                                </li>
+                                <li>
+                                    <h3 class="fw-normal dark-text">Category</h3>
+                                    <h3 class="fw-normal light-text">{{ $transaction['network'] }} {{ $transaction['type'] }}</h3>
+                                </li>
+                                <li>
+                                    <h3 class="fw-normal dark-text">Detail</h3>
+                                    <h3 class="fw-normal light-text text-end justify-content-end">
+                                        {{ isset($transaction['destination']) ? substr($transaction['destination'], 0, 60) : '' }}
+                                    </h3>
+                                </li>
+                                <li class="amount">
+                                    <h3 class="fw-normal dark-text">Amount</h3>
+                                    <h3 class="fw-semibold success-color">₦{{ number_format($transaction['amount'], 2) }}</h3>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn close-btn" data-bs-dismiss="modal">
+                            <img src="{{ asset('assets/feather/x.svg') }}" />
+                        </button>
+                    </div>
                 </div>
             </div>
             @endforeach

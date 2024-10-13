@@ -40,6 +40,15 @@ Route::middleware(['token'])->group(function () {
     
     Route::get('data', [HomeController::class, 'data'])->name('data.index');
     Route::get('data-transactions', [HomeController::class, 'dataTransactions'])->name('data.transactions');
+
+    Route::get('data', [HomeController::class, 'data'])->name('data.index');
+    Route::get('data-transactions', [HomeController::class, 'dataTransactions'])->name('data.transactions');
+
+    Route::get('cable', [HomeController::class, 'cable'])->name('cable.index');
+    Route::get('cable-transactions', [HomeController::class, 'cableTransactions'])->name('cable.transactions');
+
+    Route::get('power', [HomeController::class, 'power'])->name('power.index');
+    Route::get('power-transactions', [HomeController::class, 'powerTransactions'])->name('power.transactions');
 });
 
 Route::middleware(['token'])->group(function () {

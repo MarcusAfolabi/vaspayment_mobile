@@ -4,69 +4,128 @@ namespace App\Livewire\Airtime;
 
 use Livewire\Component;
 use App\Services\ApiEndpoints;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
 class BuyAirtimeForm extends Component
 {
-    public $networkProvider;
+    public $network;
     public $amount;
     public $phone;
     public $userPhone;
+    public $user;
     public $saveBeneficiary = false;
+    public $beneficiaryName;
+    public $errorMessage = null; 
+    public $isButtonDisabled = false;
 
     protected $rules = [
-        'networkProvider' => 'required|string',
+        'network' => 'required|string',
         'phone' => 'required|numeric|regex:/^\d{11}$/',
         'amount' => 'required|numeric|regex:/^[1-9]\d*$/|between:5,1000',
-        'saveBeneficiary' => 'sometimes|boolean',
-        'beneficiaryName' => 'sometimes|string',
+        'saveBeneficiary' => 'nullable|boolean',
+        'beneficiaryName' => 'nullable',
     ];
 
     public function mount()
     {
-        $user = Session::get('user');
-        $this->userPhone = $user['phone'];
+        $this->user = Session::get('user');
+        $this->userPhone = $this->user['phone'];
+        $this->getAirtimeBeneficiaries();
+    }
+
+    protected function saveBeneficiary()
+    {
+
+        $body = [
+            'user_id' => $this->user['id'],
+            'product_type' => 'airtime',
+            'list' => json_encode([
+                [
+                    'type' => 'airtime',
+                    'network' => $this->network,
+                    'phone' => $this->phone,
+                    'beneficiary_name' => $this->beneficiaryName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            ]),
+        ];
+        $apiEndpoints = new ApiEndpoints();
+        $headers = $apiEndpoints->header();
+        $response = Http::withHeaders($headers)
+            ->withBody(json_encode($body), 'application/json')
+            ->post(ApiEndpoints::saveBeneficiary());
+        if ($response->successful()) {
+            $this->beneficiaries = $response->json()['data'] ?? [];
+        } else {
+            $this->addError('beneficiary', $response->json()['message']);
+        }
     }
 
     public $balance;
-    public function BuyAirtime()
+    public function buyAirtime()
     {
-        $this->validate();
-        $this->balance = (int) Session::get('wallet')['balance'];
-        $this->balance = number_format(Session::get('wallet')['balance'], 0, '.', '');
-        $amount = $this->amount;
+        $wallet = Session::get('wallet');
+        $this->balance = (int) $wallet['balance'];
 
-        if ($this->balance >= $amount) {
-            
-            $body = [
-                'network' => $this->networkProvider,
-                'wallet_id' => Session::get('wallet')['wallet_id'],
-                'amount' => $this->amount,
-                'phone' => $this->phone,
-                'saveBeneficiary' => $this->saveBeneficiary,
-            ];
-            $apiEndpoints = new ApiEndpoints();
-            $headers = $apiEndpoints->header();
-            $response = Http::withHeaders($headers)
+        // Check if balance is sufficient
+        if ($this->balance < $this->amount) {
+            $this->errorMessage = 'You have insufficient funds. Please fund your account to continue.';
+            $this->isButtonDisabled = true;
+            return;
+        }
+
+        $this->validate();
+
+        if ($this->beneficiaryName) {
+            $this->saveBeneficiary();
+        }
+
+        // Prepare API request body
+        $body = [
+            'network' => $this->network,
+            'wallet_id' => $wallet['wallet_id'],
+            'amount' => $this->amount,
+            'phone' => $this->phone,
+        ];
+
+        // Send the API request
+        $apiEndpoints = new ApiEndpoints();
+        $response = Http::withHeaders($apiEndpoints->header())
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::buyLocalAirtime());
-            dd($response->json());
-            if ($response->successful()) {
-                $info = $response->json()['message'];
-                Session::flash('success', $info);
-                $this->redirect('/airtime', navigate:true);
-            }
-            // info($response->json()['message']);
-            Session::flash('error', $response->json()['message']);
-            $this->redirect('/airtime', navigate: true);
 
-            
+        // Handle API response
+        if ($response->successful()) {
+            $this->errorMessage = null;
+            $this->isButtonDisabled = false; // Enable the button
+            Session::flash('success', $response->json()['message']);
+            return redirect()->to('/airtime');
         } else {
-            $this->addError('response', 'You have insufficient funds');
+            Session::flash('error', $response->json()['message']);
+            return redirect()->to('/airtime');
         }
-        Session::flash('message', 'Airtime purchase successful!');
+    }
+
+
+    public $beneficiaries;
+    public function getAirtimeBeneficiaries()
+    {
+        $body = [
+            'user_id' => $this->user['id'],
+            'type' => 'Airtime',
+        ];
+        $apiEndpoints = new ApiEndpoints();
+        $headers = $apiEndpoints->header();
+        $response = Http::withHeaders($headers)
+            ->withBody(json_encode($body), 'application/json')
+            ->post(ApiEndpoints::beneficiaries());
+        if ($response->successful()) {
+            $this->beneficiaries = $response->json()['data'] ?? [];
+        } else {
+            $this->addError('beneficiary', $response->json()['message']);
+        }
     }
 
     public function render()

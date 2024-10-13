@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('airtime.index') }}">
+                <a href="{{ route('data.index') }}">
                     <div class="categories-box">
                         <img src="{{ asset('assets/feather/wifi.svg') }}" />
                     </div>

@@ -51,6 +51,7 @@ class Login extends Component
                 session(['bonus' => $bonus]);
                 session(['token' => $token]);
                 session(['virtualAccount' => $virtualAccount]);
+                Session::flash('success','Welcome back, ' . $data['name']);
                 return redirect()->to('/dashboard');
             } else {
                 $this->addError('password', $response->json()['message']);

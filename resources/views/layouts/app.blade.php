@@ -34,85 +34,82 @@
 
     @livewireStyles
 </head>
-@if (Route::is('home', 'login', 'register', 'forget-password'))
 
-<body class="auth-body">
-    @else
+<body class="{{ Route::is('home', 'login', 'register', 'forget-password') ? 'auth-body' : '' }}">
 
-    <body>
-        @endif
-        @yield('main')
-        @livewireScripts
 
-        {{-- Error Modal --}}
-        @if (session('error'))
-        <div class="modal error-modal fade" id="error" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title">Oops!</h2>
-                    </div>
-                    <div class="modal-body">
-                        <div class="error-img">
-                            <img class="img-fluid" src="assets/images/svg/error.svg" alt="error" />
-                        </div>
-                        <h3>{{ session('error') }}</h3>
-                    </div>
-                    <button type="button" class="btn close-btn" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="icon" data-feather="x"></i>
-                    </button>
+    @yield('main')
+    @livewireScripts
+
+    {{-- Error Modal --}}
+    @if (session('error'))
+    <div class="modal error-modal fade" id="error" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Oops!</h2>
                 </div>
+                <div class="modal-body">
+                    <div class="error-img">
+                        <img class="img-fluid" src="{{ asset('assets/images/svg/error.svg') }}" alt="error" />
+                    </div>
+                    <h3 class="pb-0 mt-2">{{ session('error') }}</h3>
+                </div>
+                <button type="button" class="btn close-btn" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('assets/feather/x.svg') }}" />
+                </button>
             </div>
         </div>
-        @endif
+    </div>
+    @endif
 
-        {{-- Success Modal --}}
-        @if (session('success'))
-        <div class="modal successful-modal fade" id="done" tabindex="-1" aria-labelledby="doneModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title">Successfully</h2>
-                    </div>
-                    <div class="modal-body">
-                        <div class="done-img">
-                            <img class="img-fluid" src="assets/images/svg/done.svg" alt="done" />
-                        </div>
-                        <h3 class="pb-0">{{ session('success') }}</h3>
-                    </div>
-                    <button type="button" class="btn close-btn" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="icon" data-feather="x"></i>
-                    </button>
+    {{-- Success Modal --}}
+    @if (session('success'))
+    <div class="modal successful-modal fade" id="done" tabindex="-1" aria-labelledby="doneModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Successfully</h2>
                 </div>
+                <div class="modal-body">
+                    <div class="done-img">
+                        <img class="img-fluid" src="{{ asset('assets/images/svg/done.svg') }}" alt="done" />
+                    </div>
+                    <h3 class="pb-0 mt-2">{{ session('success') }}</h3>
+                </div>
+                <button type="button" class="btn close-btn" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('assets/feather/x.svg') }}" />
+                </button>
             </div>
         </div>
-        @endif
+    </div>
+    @endif
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                @if(session('error'))
-                var errorModal = new bootstrap.Modal(document.getElementById('error'));
-                errorModal.show();
-                @elseif(session('success'))
-                var successModal = new bootstrap.Modal(document.getElementById('done'));
-                successModal.show();
-                @endif
-            });
-        </script>
-
- 
-        <script rel="preload" src="{{ asset('assets/js/swiper-bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/custom-swiper.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/feather.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/custom-feather.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/iconsax.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-        <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
-        </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('error'))
+            var errorModal = new bootstrap.Modal(document.getElementById('error'));
+            errorModal.show();
+            @elseif(session('success'))
+            var successModal = new bootstrap.Modal(document.getElementById('done'));
+            successModal.show();
+            @endif
+        });
+    </script>
 
 
-    </body>
+    <script rel="preload" src="{{ asset('assets/js/swiper-bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/custom-swiper.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/feather.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/custom-feather.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/iconsax.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
+    </script>
+
+
+</body>
 
 </html>
