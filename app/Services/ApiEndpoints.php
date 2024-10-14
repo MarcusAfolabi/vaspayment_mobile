@@ -8,7 +8,7 @@ class ApiEndpoints
 {
     public static function buyElectricity()
     {
-        return self::baseUrl() . '/buy-electricity';
+        return self::baseUrl() . '/buy-meter-token';
     }
     public static function queryMeterNo()
     {

@@ -6,7 +6,7 @@
     </div>
 
     <ul>
-        <li>
+        <li class="active">
             <a href="{{ route('dashboard') }}" wire:navigate>
                 <div class="icon">
                     <img class="unactive" src="{{ asset('assets/images/svg/mpay.svg') }}" alt="mPay" />
@@ -38,7 +38,7 @@
             </a>
         </li>
 
-        <li class="active">
+        <li>
             <a href="#" wire:navigate>
                 <div class="icon">
                     <img class="unactive" src="{{ asset('assets/images/svg/user.svg') }}" alt="profile" />

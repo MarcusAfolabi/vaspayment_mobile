@@ -3,10 +3,7 @@
         <div class="header-panel">
             <a class="sidebar-btn" href="{{ url()->previous() }}">
                 <img src="{{ asset('assets/feather/arrow-left.svg') }}" />
-            </a>
-            <!-- <a wire:navigate href="{{ route('user.notification') }}" class="notification">
-                <img src="{{ asset('assets/feather/bell.svg') }}" />
-            </a> -->
+            </a> 
             <h2>@yield('title')</h2>
         </div>
     </div>

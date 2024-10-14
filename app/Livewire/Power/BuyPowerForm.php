@@ -33,11 +33,10 @@ class BuyPowerForm extends Component
 
     protected $rules = [
         'selectedNetwork' => 'required|string',
-        'selectedBundle' => 'required|string',
-        'allowance' => 'required|string',
-        'validity' => 'required|string',
+        'selectedType' => 'required|string',
+        'meterno' => 'required|string',
+        'amount' => 'required',
         'phone' => 'required|numeric|regex:/^\d{11}$/',
-        'resellerPrice' => 'required',
         'saveBeneficiary' => 'nullable|boolean',
         'beneficiaryName' => 'nullable|string|required_if:saveBeneficiary,true',
     ];
@@ -50,15 +49,15 @@ class BuyPowerForm extends Component
             // Replace '234' with '0'
             $this->userPhone = '0' . substr($this->userPhone, 3);
         }
-        $this->getDataBeneficiaries();
-        $this->getDataNetwork();
+        $this->getPowerBeneficiaries();
+        $this->getPowerTypes();
     }
 
-    public function getDataBeneficiaries()
+    public function getPowerBeneficiaries()
     {
         $body = [
             'user_id' => $this->user['id'],
-            'type' => 'cable',
+            'type' => 'power',
         ];
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();
@@ -77,10 +76,10 @@ class BuyPowerForm extends Component
 
         $body = [
             'user_id' => $this->user['id'],
-            'product_type' => 'electricity',
+            'product_type' => 'power',
             'list' => json_encode([
                 [
-                    'type' => 'electricity',
+                    'type' => 'power',
                     'network' => $this->selectedNetwork,
                     'phone' => $this->phone,
                     'beneficiary_name' => $this->beneficiaryName,
@@ -101,7 +100,7 @@ class BuyPowerForm extends Component
         }
     }
 
-    public function getDataNetwork()
+    public function getPowerTypes()
     {
 
         $apiEndpoints = new ApiEndpoints();
@@ -134,15 +133,12 @@ class BuyPowerForm extends Component
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::queryMeterNo());
-        // Decode the API response
         $responseData = $response->json();
-
-        info($responseData);
-
         if (isset($responseData['status']) && $responseData['status'] === 'success') {
             if (isset($responseData['data']['customerName']) && !empty($responseData['data']['customerName'])) {
                 $this->disableButton = false;
                 $this->beneficiary = $responseData['data']['customerName'];
+                $this->minimumPayable = $responseData['data']['minimumPayable'];
             } else {
                 $this->disableButton = true;
                 $this->addError('meterno', 'You selected the wrong provider. Please try again');
@@ -156,21 +152,31 @@ class BuyPowerForm extends Component
         }
     }
     public $responded;
+    public $minimumPayable;
     public $beneficiary;
     public $disableButton = false;
-
 
     public function BuyToken()
     {
         $wallet = Session::get('wallet');
         $this->balance = (int) $wallet['balance'];
         $this->amount = (int) $this->amount;
+
         // Check if balance is sufficient
-        if ($this->balance < $this->amount) {
-            $this->errorMessage = 'You have insufficient funds. Please fund your account to continue.';
-            $this->isButtonDisabled = true;
-            return;
-        }
+        // if ($this->balance < $this->amount) {
+        //     $this->errorMessage = 'You have insufficient funds. Please fund your account to continue.';
+        //     $this->isButtonDisabled = true;
+        //     return;
+        // }
+
+        // // Check if the amount is less than the minimumPayable
+        // if ($this->amount < $this->minimumPayable) {
+        //     $this->errorMessage = 'You cannot buy less than the minimum payable. Please increase your amount to continue.';
+        //     $this->isButtonDisabled = true;
+        //     return;
+        // }
+
+
         $this->validate();
 
         if ($this->beneficiaryName) {
@@ -178,15 +184,11 @@ class BuyPowerForm extends Component
         }
 
         $body = [
-            'network' => $this->selectedNetwork,
-            'name' => $this->selectedBundleName,
-            'planId' => $this->selectedBundleCode,
+            'disco' => $this->selectedNetwork,
+            'type' => $this->selectedType,
+            'meterNo' => $this->meterno,
             'phone' => $this->phone,
-            'allowance' => $this->allowance,
-            'validity' => $this->validity,
-            'wallet_id' => Session::get('wallet')['wallet_id'],
             'amount' => $this->amount,
-            'biller' => $this->biller,
         ];
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();

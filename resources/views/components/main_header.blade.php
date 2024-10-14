@@ -9,7 +9,6 @@
             <a wire:navigate.hover href="{{ route('user.notification') }}" class="notification">
                 <img src="{{ asset('assets/feather/bell.svg') }}" />
             </a>
-            <!-- <h2>@yield('title')</h2> -->
         </div>
     </div>
 </header>

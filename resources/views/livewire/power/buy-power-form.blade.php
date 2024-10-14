@@ -91,7 +91,6 @@
             @error('selectedNetwork')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-            <!-- Display the names of the bundles after selecting a network -->
             @if ($selectedNetwork)
             <div class="form-group">
                 <label for="inputbankname" class="form-label">Meter Type</label>
@@ -110,17 +109,21 @@
                 <input type="number" class="form-control" wire:model.live="meterno" min="1000000000" max="9999999999999" />
             </div>
 
-            @if('beneficiary')
-            <span class="text-success" style="font-size: small;">{{ $beneficiary }}</span>
+            @if($beneficiary)
+            <span class="text-success" style="font-size: small;"><b>{{ $beneficiary }}</b>.</span>
+            @endif
+
+            @if($minimumPayable)
+            <span class="text-success" style="font-size: small;">Minimum payable is <b>₦{{ $minimumPayable }}</b></span>
             @endif
 
             @error('meterno')
-            <span class="text-danger" style="font-size: x-small;">{{ $message }}</span>
+            <span class="text-danger" style="font-size: small;">{{ $message }}</span>
             @enderror
 
             <div class="form-group">
                 <label for="inputamount1" class="form-label">Amount</label>
-                <input type="tel" maxlength="4" class="form-control" inputmode="number" wire:model="amount" />
+                <input type="tel" maxlength="4" class="form-control" inputmode="number" placeholder="{{ $minimumPayable }}" wire:model="amount" />
             </div>
             @endif
 
@@ -159,39 +162,7 @@
             <div class="alert alert-danger">{{ $errorMessage }}</div>
             @endif
             @endif
-
-
         </form>
-
-        <style>
-            .network-img {
-                cursor: pointer;
-                transition: border 0.3s, background-color 0.3s;
-            }
-
-            .network-img:hover {
-                background-color: #f0f0f0;
-            }
-
-            .network-img.selected {
-                border: 2px solid #650A88;
-            }
-
-            .amount {
-                cursor: pointer;
-                padding: 10px;
-                border: 1px solid transparent;
-                transition: background-color 0.3s, border 0.3s;
-            }
-
-            .amount:hover {
-                background-color: #f0f0f0;
-            }
-
-            .amount.selected {
-                border: 2px solid #650A88;
-            }
-        </style>
 
     </div>
 </div>
