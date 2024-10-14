@@ -124,7 +124,7 @@
                     <div class="notification-details">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <a href="receive-money.html">
+                                <a href="#">
                                     <h5 class="fw-semibold dark-text">{{ $notification['title'] }}</h5>
                                 </a>
                             </div>
@@ -153,7 +153,7 @@
                     <div class="notification-details">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <a href="receive-money.html">
+                                <a href="#">
                                     <h5 class="fw-semibold dark-text">{{ $notification['title'] }}</h5>
                                 </a>
                             </div>
@@ -169,5 +169,6 @@
             @endif
         </div>
     </section>
+    <section class="panel-space"></section>
 
 </div>

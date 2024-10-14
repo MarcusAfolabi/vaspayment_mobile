@@ -22,16 +22,18 @@ class Index extends Component
     {
         $body = [
             'user_id' => $this->userId,
+            'type' => 'Data',
+
         ];
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
-            ->post(ApiEndpoints::DataTransactions());
+            ->post(ApiEndpoints::Transactions());
         // dd($response->json());
         if ($response->successful()) {
-            $this->transactions = $response->json()['data'];
-            $this->total = $response->json()['total'];
+            $this->transactions = $response->json()['data'] ?? [];
+            $this->total = $response->json()['total'] ?? [];
         } else {
             $this->addError('error', 'Unable to fetch your aurtime transacction');
         }

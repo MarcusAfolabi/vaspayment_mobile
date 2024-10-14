@@ -141,11 +141,5 @@
             </div>
         </div>
     </div>
-
-    <!-- pay modal end -->
-
-    <!-- transaction detail modal start -->
-
-    <!-- transaction detail modal start -->
-
+ 
 </div>

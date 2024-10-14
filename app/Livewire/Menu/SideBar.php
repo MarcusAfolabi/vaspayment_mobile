@@ -26,7 +26,7 @@ class SideBar extends Component
             ["label" => "Airtime", "url" => "/airtime", "icon" => asset('assets/feather/smartphone.svg')],
             ["label" => "Data", "url" => "/data", "icon" => asset('assets/feather/wifi.svg')],
             ["label" => "Cable", "url" => "/cable", "icon" => asset('assets/feather/tv.svg')],
-            ["label" => "Electricity", "url" => "/electricity", "icon" => asset('assets/feather/zap.svg')],
+            ["label" => "Electricity", "url" => "/power", "icon" => asset('assets/feather/zap.svg')],
             ["label" => "WAEC Card", "url" => "/wace", "icon" => asset('assets/feather/book.svg')],
             ["label" => "Logout", "url" => "/logout", "icon" => asset('assets/feather/log-out.svg')],
         ];

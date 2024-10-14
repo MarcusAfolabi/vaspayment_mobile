@@ -55,7 +55,7 @@ class BuyDataForm extends Component
     {
         $body = [
             'user_id' => $this->user['id'],
-            'type' => 'Data',
+            'type' => 'data',
         ];
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();

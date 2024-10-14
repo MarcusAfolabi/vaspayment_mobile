@@ -1,3 +1,7 @@
-<div>
-    <!-- Let all your things have their places; let each part of your business have its time. - Benjamin Franklin -->
-</div>
+@extends('layouts.app')
+@section('title', 'All power transactions')
+@section('main')
+<x-header />
+@livewire('power.transactions')
+<br>
+@endsection

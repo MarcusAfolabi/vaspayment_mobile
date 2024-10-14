@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('airtime.index') }}">
+                <a href="{{ route('power.index') }}">
                     <div class="categories-box">
                         <img src="{{ asset('assets/feather/zap.svg') }}" />
                     </div>
@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('airtime.index') }}">
+                <a href="{{ route('cable.index') }}">
                     <div class="categories-box">
                         <img src="{{ asset('assets/feather/tv.svg') }}" />
                     </div>

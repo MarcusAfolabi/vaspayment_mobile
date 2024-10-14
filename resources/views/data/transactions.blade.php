@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Buy Data Bundle')
+@section('title', 'All data transactions')
 @section('main')
-<x-virtual_header />
+<x-header />
 @livewire('data.transactions')
 <br>
 @endsection
