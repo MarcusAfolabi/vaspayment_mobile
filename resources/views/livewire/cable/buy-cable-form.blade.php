@@ -13,8 +13,6 @@
                 <div @click.prevent="$wire.set('package', '{{ $item['provider'] }}'); $wire.set('smartCardNo', '{{ $item['smartCardNo'] }}')" class="d-flex justify-content-between align-items-center">
                     <img src="{{ asset('assets/images/networks/' . $item['provider'] . '.png') }}" class="img-fluid" style="height: 30px; width: 30px;" alt="{{ $item['provider'] }}">
                     <h6 class="mb-0"> {{ ucfirst($item['beneficiary_name']) }}</h6>
-                </div>
-                <h6 class="light-text mb-0">{{ substr($item['phone'], -10) }}</h6>
             </div>
             <h6 class="light-text mb-0">{{ substr($item['smartCardNo'], -10) }}</h6>
         </div>
