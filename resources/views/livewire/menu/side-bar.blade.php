@@ -1,7 +1,9 @@
  <div class="offcanvas sidebar-offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeft">
      <div class="offcanvas-header sidebar-header">
          <div class="sidebar-logo">
-             <img class="img-fluid logo" src="{{ $logo }}" alt="logo" />
+             @php
+             $hour = date('H'); // Get current hour in 24-hour format
+             if ($hour < 12) { $greeting='Good Morning' ; } elseif ($hour < 18) { $greeting='Good Afternoon' ; } else { $greeting='Good Evening' ; } @endphp <p>{{ $greeting }}, {{ $name }}</p>
          </div>
          <div class="balance">
              <img class="img-fluid balance-bg" src="{{ asset('assets/images/background/auth-bg.jpg') }}" alt="auth-bg" />
@@ -39,7 +41,7 @@
                      </a>
                  </li>
                  @endforeach
-             </ul> 
+             </ul>
          </div>
      </div>
  </div>

@@ -30,16 +30,16 @@
 
                         <a href="#transaction-detail-{{ $tx['id'] }}" data-bs-toggle="modal" class="d-flex gap-3">
                             <div class="transaction-image color1">
-                                @if ($tx['network'] == 'MTN')
-                                <img src="{{ asset('assets/images/networks/mtn.png') }}" style="height: 30px; width: 30px;" />
-                                @elseif ($tx['network'] == 'AIRTEL')
-                                <img src="{{ asset('assets/images/networks/airtel.png') }}" style="height: 30px; width: 30px;" />
-                                @elseif ($tx['network'] == 'GLO')
-                                <img src="{{ asset('assets/images/networks/glo.png') }}" style="height: 30px; width: 30px;" />
-                                @elseif ($tx['network'] == '9MOBILE')
-                                <img src="{{ asset('assets/images/networks/9mobile.png') }}" style="height: 30px; width: 30px;" />
+                                @if ($tx['network'] == 'DSTV')
+                                <img src="{{ asset('assets/images/networks/DSTV.png') }}" style="height: 30px; width: 30px;" />
+                                @elseif ($tx['network'] == 'GOTV')
+                                <img src="{{ asset('assets/images/networks/GOTV.png') }}" style="height: 30px; width: 30px;" />
+                                @elseif ($tx['network'] == 'SHOWMAX')
+                                <img src="{{ asset('assets/images/networks/SHOWMAX.png') }}" style="height: 30px; width: 30px;" />
+                                @elseif ($tx['network'] == 'STARTIMES')
+                                <img src="{{ asset('assets/images/networks/STARTIMES.png') }}" style="height: 30px; width: 30px;" />
                                 @else
-                                <img src="{{ asset('assets/images/logo/favicon.png') }}" style="height: 30px; width: 30px;" />
+                                <img src="{{ asset('assets/images/networks/Vpay.png') }}" style="height: 30px; width: 30px;" />
                                 @endif
                             </div>
                             <div class="transaction-details">

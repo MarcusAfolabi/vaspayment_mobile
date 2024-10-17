@@ -6,14 +6,35 @@ use App\Models\Key;
 
 class ApiEndpoints
 {
+    public static function makeTransfer()
+    {
+        return self::baseUrl() . '/make-transfer';
+    }
+    public static function buyCableSubscription()
+    {
+        return self::baseUrl() . '/buy-cable-subscription';
+    }
+    
+    public static function queryDecoderNo()
+    {
+        return self::baseUrl() . '/query-decoder-no';
+    }
+
+    public static function getCablePackage()
+    {
+        return self::baseUrl() . '/get-cable-packages';
+    }
+
     public static function buyElectricity()
     {
         return self::baseUrl() . '/buy-meter-token';
     }
+
     public static function queryMeterNo()
     {
         return self::baseUrl() . '/query-meter-no';
     }
+
     public static function electricityTypes()
     {
         return self::baseUrl() . '/get-electricity-type';
@@ -79,6 +100,28 @@ class ApiEndpoints
         return self::baseUrl() . '/budpay-virtual-account';
     }
 
+    public static function updateAccount()
+    {
+        return self::baseUrl() . '/update-user-account';
+    }
+    public static function updatePassword()
+    {
+        return self::baseUrl() . '/update-user-password';
+    }
+    public static function updateNotification()
+    {
+        return self::baseUrl() . '/update-user-notification';
+    }
+
+    public static function getBeneficiary()
+    {
+        return self::baseUrl() . '/get-user-beneficiary';
+    }
+    public static function updateBenficiary()
+    {
+        return self::baseUrl() . '/update-user-beneficiary';
+    }
+
     public static function dashboard()
     {
         return self::baseUrl() . '/auth/dashboard';
@@ -86,6 +129,10 @@ class ApiEndpoints
     public static function forgetPassword()
     {
         return self::baseUrl() . '/auth/forget-password';
+    }
+    public static function changePassword()
+    {
+        return self::baseUrl() . '/change-user-password';
     }
     public static function resetPassword()
     {

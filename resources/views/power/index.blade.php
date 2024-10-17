@@ -3,5 +3,4 @@
 @section('main')
 <x-header />
 @livewire('power.index')
-<br>
 @endsection

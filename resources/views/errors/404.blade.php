@@ -1,15 +1,7 @@
 @extends('layouts.app')
+@section('title', '404 - Page not found')
 @section('main')
-    <header class="section-t-space">
-        <div class="custom-container">
-            <div class="header-panel">
-                <a wire:navigate href="/" class="back-btn">
-                    <i class="icon" data-feather="arrow-left"></i>
-                </a>
-                <h2>404 - Page Not Found</h2>
-            </div>
-        </div>
-    </header>
+    <x-header />
     <section class="section-b-space">
         <div class="custom-container">
             <div class="empty-page">

@@ -8,17 +8,14 @@ use Illuminate\Support\Facades\Session;
 class SideBar extends Component
 {
     public $menuItems;
-    public $balance = 0;
-    public $commission = 0;
-    public $bonus = 0;
-    public $logo = 'https://vaspayment.com/logo_web.png';
+    public $name;
+    public $balance = 0; 
     public function mount()
     {
+        $user = Session::get('user');
+        $this->name = $user['name'];
         $userWallet = Session::get("wallet");
-        $userBonus = Session::get("bonus");
-        $this->balance = $userWallet["balance"] ?? '0.00';
-        $this->commission = $userWallet["commission"] ?? '0.00';
-        $this->bonus = $userBonus['bonus'] ?? '0.00';
+        $this->balance = $userWallet["balance"] ?? '0.00'; 
 
         $this->menuItems = [
             ["label" => "Home", "url" => "/", "icon" => asset('assets/feather/home.svg')],
@@ -27,7 +24,7 @@ class SideBar extends Component
             ["label" => "Data", "url" => "/data", "icon" => asset('assets/feather/wifi.svg')],
             ["label" => "Cable", "url" => "/cable", "icon" => asset('assets/feather/tv.svg')],
             ["label" => "Electricity", "url" => "/power", "icon" => asset('assets/feather/zap.svg')],
-            ["label" => "WAEC Card", "url" => "/wace", "icon" => asset('assets/feather/book.svg')],
+            // ["label" => "WAEC Card", "url" => "/wace", "icon" => asset('assets/feather/book.svg')],
             ["label" => "Logout", "url" => "/logout", "icon" => asset('assets/feather/log-out.svg')],
         ];
     }

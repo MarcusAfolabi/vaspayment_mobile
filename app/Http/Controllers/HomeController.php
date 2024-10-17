@@ -15,12 +15,44 @@ class HomeController extends Controller
     {
         return view("dashboard.notifications");
     }
-
+    public function userProfile()
+    {
+        return view("dashboard.user.profile");
+    }
+    public function userAccount()
+    {
+        return view("dashboard.user.account");
+    }
+    
+    public function userBeneficiaries()
+    {
+        return view("dashboard.user.beneficiary");
+    }
+    
+    public function userPassword()
+    {
+        return view("dashboard.user.password");
+    }
+    
+    public function userSetting()
+    {
+        return view("dashboard.user.settings");
+    }
+    
+    public function userHelpdesk()
+    {
+        return view("dashboard.user.helpdesk");
+    }
+    
     public function virtualAccount()
     {
         return view("dashboard.virtual-account");
     }
 
+    public function allProducts()
+    {
+        return view("dashboard.products");
+    }
     public function airtime()
     {
         return view("airtime.index");
@@ -49,6 +81,11 @@ class HomeController extends Controller
     {
         return view("power.index");
     }
+    public function transfer()
+    {
+        return view("transfer.index");
+    }
+    
     public function powerTransactions()
     {
         return view("power.transactions");

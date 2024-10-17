@@ -3,7 +3,10 @@
 namespace App\Livewire\Power;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use App\Services\ApiEndpoints;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -30,6 +33,7 @@ class BuyPowerForm extends Component
     public $selectedNetwork = '';
     public $selectedName = '';
     public $beneficiaries;
+    public $meterNo;
 
     protected $rules = [
         'selectedNetwork' => 'required|string',
@@ -49,6 +53,7 @@ class BuyPowerForm extends Component
             // Replace '234' with '0'
             $this->userPhone = '0' . substr($this->userPhone, 3);
         }
+
         $this->getPowerBeneficiaries();
         $this->getPowerTypes();
     }
@@ -71,6 +76,7 @@ class BuyPowerForm extends Component
         }
     }
 
+
     protected function saveBeneficiary()
     {
 
@@ -79,13 +85,16 @@ class BuyPowerForm extends Component
             'product_type' => 'power',
             'list' => json_encode([
                 [
+                    'uuid' => (string) Str::uuid(),
                     'type' => 'power',
-                    'network' => $this->selectedNetwork,
+                    'provider' => $this->selectedNetwork,
+                    'meterNo' => $this->meterno,
                     'phone' => $this->phone,
                     'beneficiary_name' => $this->beneficiaryName,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]
+
             ]),
         ];
         $apiEndpoints = new ApiEndpoints();
@@ -158,23 +167,25 @@ class BuyPowerForm extends Component
 
     public function BuyToken()
     {
+
+
         $wallet = Session::get('wallet');
         $this->balance = (int) $wallet['balance'];
         $this->amount = (int) $this->amount;
 
         // Check if balance is sufficient
-        // if ($this->balance < $this->amount) {
-        //     $this->errorMessage = 'You have insufficient funds. Please fund your account to continue.';
-        //     $this->isButtonDisabled = true;
-        //     return;
-        // }
+        if ($this->balance < $this->amount) {
+            $this->errorMessage = 'You have insufficient funds. Please fund your account to continue.';
+            $this->isButtonDisabled = true;
+            return;
+        }
 
-        // // Check if the amount is less than the minimumPayable
-        // if ($this->amount < $this->minimumPayable) {
-        //     $this->errorMessage = 'You cannot buy less than the minimum payable. Please increase your amount to continue.';
-        //     $this->isButtonDisabled = true;
-        //     return;
-        // }
+        // Check if the amount is less than the minimumPayable
+        if ($this->amount < $this->minimumPayable) {
+            $this->errorMessage = 'You cannot buy less than the minimum payable. Please increase your amount to continue.';
+            $this->isButtonDisabled = true;
+            return;
+        }
 
 
         $this->validate();
@@ -196,13 +207,30 @@ class BuyPowerForm extends Component
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::buyElectricity());
         if ($response->successful()) {
+            $this->refreshWalletSession();
             $info = $response->json()['message'];
             Session::flash('success', $info);
             return redirect()->to('/power');
         }
-        info($response->json()['message']);
         Session::flash('error', $response->json()['message']);
         return redirect()->to('/power');
+    }
+    public function refreshWalletSession()
+    {
+        $wallet = DB::table('wallets')->where('user_id', $this->user['id'])->first();
+
+        if ($wallet) {
+            Session::put('wallet', [
+                'wallet_id' => $wallet->wallet_id,
+                'balance' => $wallet->balance,
+                'commission' => $wallet->commission,
+            ]);
+            Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
+            return $wallet;
+        } else {
+            Log::error('Wallet not found for user ID: ' . auth()->id());
+            return null;
+        }
     }
     public function render()
     {

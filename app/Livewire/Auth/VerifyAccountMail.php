@@ -34,7 +34,7 @@ class VerifyAccountMail extends Component
                 Session::flash('success', $info);
                 return redirect()->to('/verify-email');
             } else {
-                $info = $response->body();
+                $info = $response->json()['message'];
                 Session::flash('error', $info);
             }
         } catch (\Throwable $th) {

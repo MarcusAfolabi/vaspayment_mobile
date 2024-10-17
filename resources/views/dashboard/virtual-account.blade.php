@@ -3,5 +3,5 @@
 @section('main')
 <x-header />
 @livewire('virtual-account')
-<br>
+<section class="panel-space"></section>
 @endsection

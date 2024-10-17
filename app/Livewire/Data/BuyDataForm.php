@@ -3,7 +3,10 @@
 namespace App\Livewire\Data;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use App\Services\ApiEndpoints;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -17,8 +20,8 @@ class BuyDataForm extends Component
     public $saveBeneficiary = false;
     public $beneficiaryName;
 
-    public $errorMessage = null; // For holding error messages
-    public $isButtonDisabled = false; // To disable the button
+    public $errorMessage = null;
+    public $isButtonDisabled = false;
     public $networks;
     public $network;
     public $biller;
@@ -87,7 +90,6 @@ class BuyDataForm extends Component
 
     public function updatedSelectedNetwork()
     {
-        // dd($this->selectedNetwork);
         $networkData = explode('/', $this->selectedNetwork);
         $this->selectedName = trim($networkData[0]);
         $this->selectedNetwork = trim($networkData[1]);
@@ -96,7 +98,6 @@ class BuyDataForm extends Component
             'selected_name' => $this->selectedName,
             'biller' => $this->biller,
         ];
-        // dd($body);
 
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();
@@ -143,8 +144,9 @@ class BuyDataForm extends Component
             'product_type' => 'data',
             'list' => json_encode([
                 [
+                    'uuid' => Str::uuid(),
                     'type' => 'data',
-                    'network' => $this->selectedNetwork,
+                    'provider' => $this->selectedNetwork,
                     'phone' => $this->phone,
                     'beneficiary_name' => $this->beneficiaryName,
                     'created_at' => now(),
@@ -166,6 +168,7 @@ class BuyDataForm extends Component
 
     public function buyDataBundle()
     {
+        
 
         $wallet = Session::get('wallet');
         $this->balance = (int) $wallet['balance'];
@@ -201,6 +204,8 @@ class BuyDataForm extends Component
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::buyDataBundle());
         if ($response->successful()) {
+            $this->refreshWalletSession();
+
             $info = $response->json()['message'];
             Session::flash('success', $info);
             return redirect()->to('/data');
@@ -209,7 +214,23 @@ class BuyDataForm extends Component
         Session::flash('error', $response->json()['message']);
         return redirect()->to('/data');
     }
+    public function refreshWalletSession()
+    {
+        $wallet = DB::table('wallets')->where('user_id', $this->user['id'])->first();
 
+        if ($wallet) {
+            Session::put('wallet', [
+                'wallet_id' => $wallet->wallet_id,
+                'balance' => $wallet->balance,
+                'commission' => $wallet->commission,
+            ]);
+            Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
+            return $wallet;
+        } else {
+            Log::error('Wallet not found for user ID: ' . auth()->id());
+            return null;
+        }
+    }
     public function render()
     {
         return view('livewire.data.buy-data-form');

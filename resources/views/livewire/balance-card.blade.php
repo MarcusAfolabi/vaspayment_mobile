@@ -25,9 +25,14 @@
                         </div>
                     </div>
                 </div>
-                <a wire:navigate.hover href="{{ route('virtual.account') }}" class="add-money theme-color"
-                    data-bs-toggle="modal"> Fund Wallet</a>
+                @if (Route::is('product.transfer.index'))
+                <a href="#make-transfer" class="add-money theme-color" data-bs-toggle="modal"> Make Transfer</a>
+                @else
+                <a wire:navigate.hover href="{{ route('virtual.account') }}" class="add-money theme-color" data-bs-toggle="modal"> Fund Wallet</a>
+                @endif
+
             </div>
         </div>
     </section>
+
 </div>

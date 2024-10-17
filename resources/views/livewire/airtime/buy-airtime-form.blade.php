@@ -9,9 +9,9 @@
 
         <div class="quick-send mb-2 border-b-2">
             @foreach ($beneficiaries as $item)
-            <div class="profile" wire:click="$set('phone', '{{ $item['phone'] }}'); $set('network', '{{ $item['network'] }}')">
-                <div @click.prevent="$wire.set('phone', '{{ $item['phone'] }}'); $wire.set('network', '{{ $item['network'] }}')" class="d-flex justify-content-between align-items-center">
-                    <img src="{{ asset('assets/images/networks/' . strtolower($item['network']) . '.png') }}" class="img-fluid" style="height: 30px; width: 30px;" alt="{{ $item['network'] }}">
+            <div class="profile" wire:click="$set('phone', '{{ $item['phone'] }}'); $set('network', '{{ $item['provider'] }}')">
+                <div @click.prevent="$wire.set('phone', '{{ $item['phone'] }}'); $wire.set('network', '{{ $item['provider'] }}')" class="d-flex justify-content-between align-items-center">
+                    <img src="{{ asset('assets/images/networks/' . strtolower($item['provider']) . '.png') }}" class="img-fluid" style="height: 30px; width: 30px;" alt="{{ $item['provider'] }}">
                     <h6 class="mb-0"> {{ ucfirst($item['beneficiary_name']) }}</h6> <!-- No margin below the heading -->
                 </div>
                 <h6 class="light-text mb-0">{{ substr($item['phone'], -10) }}</h6> <!-- No margin below the heading -->

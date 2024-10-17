@@ -30,12 +30,13 @@ class Index extends Component
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::Transactions());
+            // dd($response->json());
         if ($response->successful()) {
             $this->transactions = $response->json()['data'] ?? [];
             $this->total = $response->json()['total'] ?? [];
         } else {
-            Session::flash('error', $response->json()['data']);
-            $this->addError('error', $response->json()['data']);
+            Session::flash('error', $response->json()['message']);
+            $this->addError('error', $response->json()['message']);
         }
     }
     public $total;

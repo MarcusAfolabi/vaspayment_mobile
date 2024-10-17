@@ -87,9 +87,25 @@
                                                 <h3 class="fw-normal light-text">You ({{ $userName }})</h3>
                                             </li>
                                             <li>
+                                                <h3 class="fw-normal dark-text">Unit</h3>
+                                                <h3 class="fw-normal light-text">{{ $tx['unit'] }}</h3>
+                                            </li>
+                                            <li x-data="{ copied: false }">
+                                                <h3 class="fw-normal dark-text">Token</h3>
+                                                <h3 class="fw-normal light-text">
+                                                    {{ $tx['token'] }}
+                                                    <button x-on:click="navigator.clipboard.writeText('{{ $tx['token'] }}').then(() => { copied = true; setTimeout(() => copied = false, 2000); })" class="btn btn-sm btn-primary ms-2">
+                                                        Copy
+                                                    </button>
+                                                </h3>
+                                                <span x-show="copied" x-transition class="text-success text-sm">Copied!</span>
+                                            </li>
+
+                                            <li>
                                                 <h3 class="fw-normal dark-text">Category</h3>
                                                 <h3 class="fw-normal light-text">{{ $tx['network'] }} {{ $tx['type'] }}</h3>
                                             </li>
+                                            
                                             <li>
                                                 <h3 class="fw-normal dark-text">Detail</h3>
                                                 <h3 class="fw-normal light-text text-end justify-content-end">

@@ -11,11 +11,11 @@
     <meta name="author" content="webshop technology" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="{{ asset('assets/images/logo/favicon.png') }}" type="image/x-icon" />
-    <title>Welcome to VASPAYMENT</title>
+    <title>@yield('title') | {{ env('APP_NAME') }}</title>
     <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/favicon.png') }}" />
     <meta name="theme-color" content="#720E91" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="vaspayment" />
+    <meta name="apple-mobile-web-app-title" content="{{ env('APP_NAME') }}" />
     <meta name="msapplication-TileImage" content="{{ asset('assets/images/logo/favicon.png') }}" />
     <meta name="msapplication-TileColor" content="#720E91" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -107,6 +107,8 @@
     <script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
+    </script>
+    <script rel="script" src="{{ asset('assets/js/script.js') }}">
     </script>
 
 

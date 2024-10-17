@@ -56,13 +56,15 @@ class VirtualAccount extends Component
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::virtualAccount());
 
-        // Process API response and store it in the session if successful
+        // dd($response->json());
         if ($response->successful()) {
-            $virtualAccountData = $response->json()['data'];            
-            Session::put("virtualAccount", $virtualAccountData); // Store in session
+            $virtualAccountData = $response->json()['data'];
+            Session::put("virtualAccount", $virtualAccountData);
             $this->virtualAccount = $virtualAccountData;
+            // dd($this->virtualAccount);
         } else {
-            $this->addError('error', 'Unable to fetch your virtual account');
+            $this->create_virtual_account_form = true;
+            Session::flash('error', $response->json()['message']);
         }
     }
 
@@ -88,6 +90,11 @@ class VirtualAccount extends Component
     {
         $user = Session::get('user');
         $wallet = Session::get('wallet');
+        $this->validate([
+            'bvn' => 'required|digits:11',
+            'lastname' => 'required|string',
+        ]);
+
         $body = [
             'bvn' => $this->bvn,
             'wallet_id' => $wallet['id'],
@@ -110,29 +117,36 @@ class VirtualAccount extends Component
     public function verifyNIN()
     {
         $user = Session::get('user');
-        $wallet = Session::get('wallet');
-        $body = [
-            'nin' => $this->nin,
-            'wallet_id' => $wallet['id'],
-            'email' => $user['email'],
-            'name' => $user['name'],
-            'lastname' => $user['lastname'],
-            'phone' => $user['phone'],
-        ];
-        $apiEndpoints = new ApiEndpoints();
-        $headers = $apiEndpoints->header();
-        $response = Http::withHeaders($headers)
-            ->withBody(json_encode($body), 'application/json')
-            ->post(ApiEndpoints::createBudPayVirtualAccount());
-        if ($response->successful()) {
-            Session::flash('success',  $response->json()['message']);
-            $this->redirect('/virtual-account', navigate: true);
-        } else {
-            $this->addError('nin',  $response->json()['message'] ??  $response->json()['message']['responseMessage']);
+        try {
+            $this->validate([
+                'nin' => 'required|digits:11',
+                'email' => 'required|email',
+                'name' => 'required|string',
+                'lastname' => 'required|string',
+                'phone' => 'required',
+            ]);
+
+            $body = [
+                'nin' => $this->nin,
+                'lastname' => $user['lastname'],
+            ];
+            $apiEndpoints = new ApiEndpoints();
+            $headers = $apiEndpoints->header();
+            $response = Http::withHeaders($headers)
+                ->withBody(json_encode($body), 'application/json')
+                ->post(ApiEndpoints::createBudPayVirtualAccount());
+            if ($response->successful()) {
+                Session::flash('success',  $response->json()['message']);
+                $this->redirect('/virtual-account', navigate: true);
+            } else {
+                $this->addError('nin',  $response->json()['message'] ??  $response->json()['message']['responseMessage']);
+            }
+        } catch (\Throwable $th) {
+            $this->addError('nin',  $th->getMessage());
         }
     }
 
-  
+
 
 
 

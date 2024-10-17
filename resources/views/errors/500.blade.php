@@ -1,23 +1,15 @@
 @extends('layouts.app')
+@section('title', '500 - Internal Service Error')
 @section('main')
-    <header class="section-t-space">
-        <div class="custom-container">
-            <div class="header-panel">
-                <a wire:navigate href="/" class="back-btn">
-                    <i class="icon" data-feather="arrow-left"></i>
-                </a>
-                <h2>500 - No Internet Service</h2>
-            </div>
+<x-header />
+
+<section class="section-b-space">
+    <div class="custom-container">
+        <div class="empty-page">
+            <img class="img-fluid" src="{{ asset('assets/images/svg/no-internet.svg') }}" alt="500 - No Internet Service" />
+            <h2 class="dark-text fw-semibold mt-3">Oops! Internal Service Error</h2>
+            <h3 class="d-block fw-normal light-text text-center mt-2">Somethings occurred unexpectedly</h3>
         </div>
-    </header>
-    <section class="section-b-space">
-        <div class="custom-container">
-            <div class="empty-page">
-                <img class="img-fluid" src="{{ asset('assets/images/svg/no-internet.svg') }}" alt="500 - No Internet Service" />
-                <h2 class="dark-text fw-semibold mt-3">Oops! No Internet Service</h2>
-                <h3 class="d-block fw-normal light-text text-center mt-2">Please check your web url & try again
-                    later.</h3>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 @endsection

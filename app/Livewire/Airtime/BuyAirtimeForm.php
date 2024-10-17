@@ -3,7 +3,10 @@
 namespace App\Livewire\Airtime;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use App\Services\ApiEndpoints;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -16,7 +19,7 @@ class BuyAirtimeForm extends Component
     public $user;
     public $saveBeneficiary = false;
     public $beneficiaryName;
-    public $errorMessage = null; 
+    public $errorMessage = null;
     public $isButtonDisabled = false;
 
     protected $rules = [
@@ -42,8 +45,9 @@ class BuyAirtimeForm extends Component
             'product_type' => 'airtime',
             'list' => json_encode([
                 [
+                    'uuid' => (string) Str::uuid(),
                     'type' => 'airtime',
-                    'network' => $this->network,
+                    'provider' => $this->network,
                     'phone' => $this->phone,
                     'beneficiary_name' => $this->beneficiaryName,
                     'created_at' => now(),
@@ -62,10 +66,12 @@ class BuyAirtimeForm extends Component
             $this->addError('beneficiary', $response->json()['message']);
         }
     }
-
     public $balance;
+
     public function buyAirtime()
     {
+
+        // Retrieve wallet information from the session
         $wallet = Session::get('wallet');
         $this->balance = (int) $wallet['balance'];
 
@@ -81,7 +87,6 @@ class BuyAirtimeForm extends Component
         if ($this->beneficiaryName) {
             $this->saveBeneficiary();
         }
-
         // Prepare API request body
         $body = [
             'network' => $this->network,
@@ -98,13 +103,34 @@ class BuyAirtimeForm extends Component
 
         // Handle API response
         if ($response->successful()) {
+            // Flash success message and redirect
             $this->errorMessage = null;
             $this->isButtonDisabled = false; // Enable the button
             Session::flash('success', $response->json()['message']);
+            $this->refreshWalletSession();
             return redirect()->to('/airtime');
         } else {
+            // Flash error message and redirect
             Session::flash('error', $response->json()['message']);
             return redirect()->to('/airtime');
+        }
+    }
+
+    public function refreshWalletSession()
+    {
+        $wallet = DB::table('wallets')->where('user_id', $this->user['id'])->first();
+
+        if ($wallet) {
+            Session::put('wallet', [
+                'wallet_id' => $wallet->wallet_id,
+                'balance' => $wallet->balance,
+                'commission' => $wallet->commission,
+            ]);
+            Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
+            return $wallet;
+        } else {
+            Log::error('Wallet not found for user ID: ' . auth()->id());
+            return null;
         }
     }
 

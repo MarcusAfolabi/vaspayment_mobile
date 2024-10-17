@@ -8,7 +8,7 @@
             <input type="search" wire:model.live='search' placeholder="Search your transactions" class="form-control px-5" />
             <img src="{{ asset('assets/feather/search.svg') }}" alt="Search" class="search-icon" />
         </div>
-        
+
         <style>
             .position-relative {
                 position: relative;
@@ -105,7 +105,7 @@
                             <ul class="details-list">
                                 <li>
                                     <h3 class="fw-normal dark-text">Payment status</h3>
-                                    <h3 class="fw-bold success-color">Success</h3>
+                                    <h3 class="fw-bold success-color">{{ $transaction['status'] }}</h3>
                                 </li>
                                 <li>
                                     <h3 class="fw-normal dark-text">Date</h3>
@@ -114,6 +114,10 @@
                                 <li>
                                     <h3 class="fw-normal dark-text">Sender</h3>
                                     <h3 class="fw-normal light-text">You ({{ $userName }})</h3>
+                                </li>
+                                <li>
+                                    <h3 class="fw-normal dark-text">Receiver</h3>
+                                    <h3 class="fw-normal light-text">{{ $transaction['token'] }}</h3>
                                 </li>
                                 <li>
                                     <h3 class="fw-normal dark-text">Category</h3>
@@ -140,6 +144,6 @@
             @endforeach
             @endforeach
         </div>
-        <section class="panel-space"></section>
     </div>
+    <section class="panel-space"></section>
 </section>

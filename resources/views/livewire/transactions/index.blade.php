@@ -48,7 +48,7 @@
                                  </h3>
                              </div>
                              <div class="d-flex justify-content-between">
-                                 <h5 class="light-text">{{ Str::limit($transaction['destination'], 10) }}</h5> <!-- Limit to 10 characters -->
+                                 <h5 class="light-text">{{ $transaction['token']}}</h5>
                                  <h5 class="light-text">{{ $formattedDate }}</h5>
                              </div>
                          </div>

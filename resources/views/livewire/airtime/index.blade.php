@@ -46,11 +46,11 @@
                             </div>
                             <div class="transaction-details">
                                 <div class="transaction-name">
-                                    <h5>{{ $tx['network'] }}</h5>
+                                    <h5>{{ $tx['network'] }} {{ $tx['type'] }}</h5>
                                     <h3 class="dark-text success-color">₦{{ $tx['amount'] }}</h3>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="light-text">{{ $tx['type'] }}</h5>
+                                    <h5 class="light-text">{{ $tx['token'] }}</h5>
                                     @php
                                     $createdAt = \Carbon\Carbon::parse($tx['created_at']);
                                     @endphp
@@ -88,6 +88,11 @@
                                                 <h3 class="fw-normal dark-text">Sender</h3>
                                                 <h3 class="fw-normal light-text">You ({{ $userName }})</h3>
                                             </li>
+                                            <li>
+                                                <h3 class="fw-normal dark-text">Receiver</h3>
+                                                <h3 class="fw-normal light-text">{{ $tx['token'] }}</h3>
+                                            </li>
+                                            
                                             <li>
                                                 <h3 class="fw-normal dark-text">Category</h3>
                                                 <h3 class="fw-normal light-text">{{ $tx['network'] }} {{ $tx['type'] }}</h3>
@@ -141,5 +146,5 @@
             </div>
         </div>
     </div>
- 
+
 </div>
