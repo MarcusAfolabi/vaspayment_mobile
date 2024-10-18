@@ -90,4 +90,12 @@ class HomeController extends Controller
     {
         return view("power.transactions");
     }
+    public function allInsight()
+    {
+        return view("dashboard.blog.index");
+    }
+    public function showInsight($slug)
+    {
+        return view("dashboard.blog.show", compact('slug'));
+    }
 }

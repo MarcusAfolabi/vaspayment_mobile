@@ -42,6 +42,7 @@ class VerifyEmail extends Component
             $this->addError('email_otp', $info);
         }
     }
+    
     public function render()
     {
         return view('livewire.auth.verify-email');

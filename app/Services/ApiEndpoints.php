@@ -6,9 +6,14 @@ use App\Models\Key;
 
 class ApiEndpoints
 {
-    public static function makeTransfer()
+    public static function allBlog()
     {
-        return self::baseUrl() . '/make-transfer';
+        return self::baseUrl() . '/blogs';
+    }
+    
+    public static function showBlog()
+    {
+        return self::baseUrl() . '/blog/show';
     }
     public static function buyCableSubscription()
     {

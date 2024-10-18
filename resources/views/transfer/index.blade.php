@@ -3,4 +3,5 @@
 @section('main')
 <x-header />
 @livewire('transfer.index')
+
 @endsection

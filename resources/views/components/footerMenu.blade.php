@@ -29,8 +29,8 @@
 
         <li></li>
 
-        <li>
-            <a href="#" wire:navigate>
+        <li class="{{ request()->routeIs('all.insight') ? 'active' : '' }}">
+            <a href="{{ route('all.insight') }}" wire:navigate>
                 <div class="icon">
                     <img class="unactive" src="{{ asset('assets/images/svg/bar-chart.svg') }}" alt="bag" />
                     <img class="active" src="{{ asset('assets/images/svg/bar-chart-fill.svg') }}" alt="bag" />

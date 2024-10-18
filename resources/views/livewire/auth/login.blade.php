@@ -65,8 +65,8 @@
                 <span wire:loading wire:target="login">Checking records...</span>
                 <span wire:loading.remove> Login</span>
             </button>
-            <h6 class="signup mt-4 mb-4">Email verification? <a wire:navigate.hover class="signup" href="{{ route('verify.email.account') }}">Verify now</a></h6>
-            <h4 class="signup">Don't have an account?<a wire:navigate.hover href="{{ route('register') }}"> Register</a></h4>
+            <h6 class="signup mt-4 mb-4 fw-bold">Email verification? <a wire:navigate.hover class="signup" href="{{ route('verify.email.account') }}">Verify now</a></h6>
+            <a wire:navigate.hover href="{{ route('register') }}"><button class="btn theme-btn w-100">Don't have an account? Register </button></a>
         </div>
     </form>
 </div>

@@ -4,7 +4,6 @@
   <section>
     <div class="custom-container">
       <div class="crypto-wallet-box">
-        <!-- Moniepoint Microfinance Bank -->
         <div class="card-details" x-data="{ copied: false }">
           <div class="d-block w-75">
             <h5 class="fw-semibold">Moniepoint Microfinance Bank</h5>
@@ -33,7 +32,6 @@
   <section>
     <div class="custom-container">
       <div class="crypto-wallet-box">
-        <!-- Wema Bank -->
         <div class="card-details" x-data="{ copied: false }">
           <div class="d-block w-75">
             <h5 class="fw-semibold">Wema Bank</h5>
@@ -62,10 +60,9 @@
   <section>
     <div class="custom-container">
       <div class="crypto-wallet-box">
-        <!-- Wema Bank -->
         <div class="card-details" x-data="{ copied: false }">
           <div class="d-block w-75">
-            <h5 class="fw-semibold">Wema Bank</h5>
+            <h5 class="fw-semibold">{{ $virtualAccount['budpay_reference'] }}</h5>
             <h2 class="mt-2" x-ref="wemaAccount">{{ $virtualAccount['budpay_wema_no'] }}</h2>
           </div>
           <div class="price-difference">

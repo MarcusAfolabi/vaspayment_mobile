@@ -108,7 +108,4 @@
      @else
      <h3 class="d-block fw-normal dark-text text-center mt-3">There is no transaction record for now</h3>
      @endif
-
-     <section class="panel-space"></section>
-
  </section>

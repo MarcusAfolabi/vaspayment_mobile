@@ -20,6 +20,7 @@ use App\Http\Controllers\AuthenticationController;
 Route::controller(AuthenticationController::class)->group(
     function () {
         Route::get('/', 'home')->name('home');
+        Route::get('/', 'home')->name('home');
         Route::get('/login', 'login')->name('login');
         Route::get('/register', 'register')->name('register');
         Route::get('/forget-password', 'forgetPassword')->name('forget.password');
@@ -60,6 +61,8 @@ Route::middleware(['token'])->group(function () {
   
     Route::get('products', [HomeController::class, 'allProducts'])->name('product.all');
 });
+Route::get('insight/all', [HomeController::class, 'allInsight'])->name('all.insight');
+Route::get('insight/{slug}', [HomeController::class, 'showInsight'])->name('show.insight');
 
 Route::middleware(['token'])->group(function () {
     Route::get('all-transactions', [TransactionController::class, 'allTransactions'])->name('all.transactions');

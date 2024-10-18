@@ -34,6 +34,10 @@ class BuyAirtimeForm extends Component
     {
         $this->user = Session::get('user');
         $this->userPhone = $this->user['phone'];
+        if (strpos($this->userPhone, '234') === 0) {
+            // Replace '234' with '0'
+            $this->userPhone = '0' . substr($this->userPhone, 3);
+        }
         $this->getAirtimeBeneficiaries();
     }
 

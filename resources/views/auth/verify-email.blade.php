@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('main')
-@persist('header')
 <div class="auth-header">
     <a wire:navigate href="/"> <i class="back-btn" data-feather="arrow-left"></i> </a>
     <img class="img-fluid img" src="{{ asset('assets/images/authentication/6.svg') }}" alt="login to vaspayment" />
@@ -10,7 +9,6 @@
             <h4 class="p-0">Enter the confirmation code sent to continue</h4>
         </div>
     </div>
-</div>
-@endpersist
+</div> 
 @livewire('auth.verify-email')
 @endsection

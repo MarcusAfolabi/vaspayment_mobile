@@ -14,7 +14,7 @@ class ResetPassword extends Component
     public $password;
 
     protected $rules = [
-        "password" => "required|string|password_complexity",
+        "password" => "required|string",
         "email_code" => "required|digits:6|exists:otp_verifications,otp",
     ];
 

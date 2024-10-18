@@ -5,9 +5,15 @@ window.onload = () => {
   'use strict';
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('sw.js');
+      .register('/sw.js') // Assuming sw.js is in the root directory of your public folder
+      .then(function (registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function (error) {
+        console.log('ServiceWorker registration failed: ', error);
+      });
   }
 }
+
 
 /*=====================
     wishlist added start

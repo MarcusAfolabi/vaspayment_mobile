@@ -9,7 +9,7 @@
     <meta name="description" content="Simplify your Bill Payments, Earn Commissions and get a Convenient, Hassle-Free Experience." />
     <meta name="keywords" content="mtn, glo, airtel, 9mobile, data, airtime, cable tv, electricity, nepa, ikeja, abuja, power, recharge card, waec, neco, scratch card." />
     <meta name="author" content="webshop technology" />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="{{ asset('manifest.json') }}" />
     <link rel="icon" href="{{ asset('assets/images/logo/favicon.png') }}" type="image/x-icon" />
     <title>@yield('title') | {{ env('APP_NAME') }}</title>
     <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/favicon.png') }}" />
@@ -33,12 +33,18 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" as="script" rel="preload" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     @livewireStyles
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    
 </head>
 
 <body class="{{ Route::is('home', 'login', 'register', 'forget-password') ? 'auth-body' : '' }}">
 
 
+
     @yield('main')
+    <p class="text-danger" wire:offline>
+        Whoops, your device has lost connection.
+    </p>
     @livewireScripts
 
     {{-- Error Modal --}}
@@ -101,11 +107,11 @@
     <script rel="preload" src="{{ asset('assets/js/swiper-bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/custom-swiper.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/feather.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-    <script rel="preload" src="{{ asset('assets/js/custom-feather.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <!-- <script rel="preload" src="{{ asset('assets/js/custom-feather.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script> -->
     <script rel="preload" src="{{ asset('assets/js/iconsax.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-    <script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-    <script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
+    <!-- <script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script> -->
+    <!-- <script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script> -->
     <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
     </script>
     <script rel="script" src="{{ asset('assets/js/script.js') }}">
