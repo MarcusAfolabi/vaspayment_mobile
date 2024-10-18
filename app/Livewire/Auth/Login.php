@@ -40,23 +40,28 @@ class Login extends Component
             $response = Http::get(ApiEndpoints::login(), $body);
 
             if ($response->successful()) {
-                $data = $response->json()['user'];
-                $wallet = $response->json()['wallet'];
-                $bonus = $response->json()['bonus'];
-                $token = $response->json()['token'];
-                $virtualAccount = $response->json()['virtualAccount'];
+                $responseData = $response->json();
+
 
                 // Store data and token in session
-                session(['user' => $data]);
-                session(['wallet' => $wallet]);
-                session(['bonus' => $bonus]);
-                session(['token' => $token]);
-                session(['virtualAccount' => $virtualAccount]);
-                Session::flash('success', 'Thank you for your patronage, ' . $data['name']);
+                $data = $responseData['user'];
+                $wallet = $responseData['wallet'] ?? null;
+                $bonus = $responseData['bonus'] ?? null;
+                $token = $responseData['token'] ?? null;
+                $virtualAccount = $responseData['virtualAccount'];
 
-                if (empty(Session::get('virtualAccount'))) {
+                // Store user data and token in session
+                session(['user' => $data, 'wallet' => $wallet, 'bonus' => $bonus, 'token' => $token]);
+
+                // Check if virtual account exists before creating it
+                if ($virtualAccount) {
+                    session(['virtualAccount' => $virtualAccount]);
+                } else {
                     $this->createVirtualAccount();
-                }
+                }              
+               
+
+                Session::flash('success', 'Thank you for your patronage, ' . $data['name']);
                 return redirect()->to('/dashboard');
             } else {
                 $this->addError('password', $response->json()['message']);
@@ -78,7 +83,7 @@ class Login extends Component
                     'nin' => $nin,
                     'email' => $user['email'],
                     'name' => $user['name'],
-                    'lastname' => $user['lastname'] ?? $user['name'],
+                    'lastname' => $user['lastname'],
                     'phone' => $user['phone'],
                 ];
                 $apiEndpoints = new ApiEndpoints();
@@ -90,7 +95,7 @@ class Login extends Component
 
                 if ($response->successful()) {
                     $data = $response->json()['data'];
-                    Session::put("virtualAccount", $data);
+                    session(['virtualAccount' => $data]);
                 } else {
                     info("Failed to create virtual account: " . $response->json()['message']);
                 }

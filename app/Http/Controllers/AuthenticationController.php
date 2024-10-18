@@ -97,7 +97,7 @@ class AuthenticationController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->forget("token");
+        $request->session()->flush();
         return redirect("/");
     }
 }
