@@ -16,10 +16,12 @@ class Account extends Component
     public $phone;
     public $referralId;
     public $user;
+    public $wallet;
 
     public function mount()
     {
         $this->user = Session::get('user');
+        $this->wallet = Session::get('wallet');
         $this->fillUserData();
     }
 
@@ -31,7 +33,7 @@ class Account extends Component
         $this->photo = $this->user['profile_photo_path'];
         $this->email = $this->user['email'];
         $this->phone = $this->user['phone'];
-        $this->referralId = $this->user['referree_id'];
+        $this->referralId = $this->wallet['wallet_id'];
     }
 
     #[Validate('required')]

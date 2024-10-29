@@ -34,7 +34,8 @@
 
     @livewireStyles
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6487824117243144" crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="uhIen3ZQPL0dIOdQzY4pSdjQC_tJXMV5UN-OiLHW-e8" />
 </head>
 
 <body class="{{ Route::is('home', 'login', 'register', 'forget-password') ? 'auth-body' : '' }}">

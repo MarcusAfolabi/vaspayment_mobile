@@ -20,7 +20,6 @@ use App\Http\Controllers\AuthenticationController;
 Route::controller(AuthenticationController::class)->group(
     function () {
         Route::get('/', 'home')->name('home');
-        Route::get('/', 'home')->name('home');
         Route::get('/login', 'login')->name('login');
         Route::get('/register', 'register')->name('register');
         Route::get('/forget-password', 'forgetPassword')->name('forget.password');

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Register')
 @section('main')
 <div class="auth-header">
     <a wire:navigate href="/"> <i class="back-btn" data-feather="arrow-left"></i> </a>

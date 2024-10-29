@@ -34,6 +34,7 @@ class Show extends Component
             $this->show = $response->json()['data'];
         }
     }
+    
     public function render()
     {
         return view('livewire.dashboard.blog.show');

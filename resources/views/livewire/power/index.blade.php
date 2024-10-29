@@ -105,7 +105,7 @@
                                                 <h3 class="fw-normal dark-text">Category</h3>
                                                 <h3 class="fw-normal light-text">{{ $tx['network'] }} {{ $tx['type'] }}</h3>
                                             </li>
-                                            
+
                                             <li>
                                                 <h3 class="fw-normal dark-text">Detail</h3>
                                                 <h3 class="fw-normal light-text text-end justify-content-end">
@@ -155,5 +155,11 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var myModal = new bootstrap.Modal(document.getElementById('pay'));
+            myModal.show();
+        });
+    </script>
 
 </div>

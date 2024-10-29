@@ -6,7 +6,7 @@
                 <img class="img-fluid profile-pic" src="{{ $photo }}" alt="p3" />
             </div>
         </div>
-        <h2>{{ $name }}</h2>
+        <h2>{{ ucwords($name) }}</h2>
         <!-- <h5>Referral ID: {{ $referralId }} <img src="{{ asset('assets/feather/copy.svg') }}" /> </h5> -->
         <div x-data="{
         referralId: '{{ $referralId }}',
@@ -17,7 +17,7 @@
                 console.error('Could not copy text: ', err);
             });
         }
-    }">
+            }">
             <h5>
                 Referral ID: {{ $referralId }}
                 <img src="{{ asset('assets/feather/copy.svg') }}" @click="copyToClipboard()" style="cursor: pointer;" alt="Copy Referral ID" />

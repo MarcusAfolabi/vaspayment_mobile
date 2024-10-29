@@ -139,5 +139,11 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var myModal = new bootstrap.Modal(document.getElementById('pay'));
+            myModal.show();
+        });
+    </script>
 
 </div>

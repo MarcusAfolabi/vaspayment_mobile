@@ -48,18 +48,16 @@ class Login extends Component
                 $wallet = $responseData['wallet'] ?? null;
                 $bonus = $responseData['bonus'] ?? null;
                 $token = $responseData['token'] ?? null;
+                $apiToken = $responseData['apiToken'] ?? null;
                 $virtualAccount = $responseData['virtualAccount'];
 
                 // Store user data and token in session
-                session(['user' => $data, 'wallet' => $wallet, 'bonus' => $bonus, 'token' => $token]);
+                session(['user' => $data, 'wallet' => $wallet, 'bonus' => $bonus, 'token' => $token, 'apiToken' => $apiToken]);
 
                 // Check if virtual account exists before creating it
-                if ($virtualAccount) {
-                    session(['virtualAccount' => $virtualAccount]);
-                } else {
+                if (empty($virtualAccount)) {
                     $this->createVirtualAccount();
-                }              
-               
+                }                             
 
                 Session::flash('success', 'Thank you for your patronage, ' . $data['name']);
                 return redirect()->to('/dashboard');
@@ -71,9 +69,10 @@ class Login extends Component
         }
     }
 
+  
+
     public function createVirtualAccount()
     {
-        if (empty(Session::get('virtualAccount'))) {
             $user = Session::get('user');
             $nin = $user['phone'];
             $nin = substr(preg_replace('/\D/', '', $nin), 0, 11);
@@ -84,8 +83,9 @@ class Login extends Component
                     'email' => $user['email'],
                     'name' => $user['name'],
                     'lastname' => $user['lastname'],
-                    'phone' => $user['phone'],
+                    'phone' => $nin,
                 ];
+                
                 $apiEndpoints = new ApiEndpoints();
                 $headers = $apiEndpoints->header();
 
@@ -101,8 +101,7 @@ class Login extends Component
                 }
             } catch (\Throwable $th) {
                 info("Error creating virtual account: " . $th->getMessage());
-            }
-        }
+            } 
     }
 
     public function render()

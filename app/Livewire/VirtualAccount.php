@@ -4,10 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Services\ApiEndpoints;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class VirtualAccount extends Component
 {
@@ -27,11 +28,14 @@ class VirtualAccount extends Component
     public function mount()
     {
         $this->user = Session::get("user");
-        $this->virtualAccount = Session::get("virtualAccount");
-
+        $this->virtualAccount = Cache::remember('virtual_account_' . $this->user['id'], 86400, function () {
+            return DB::table("virtual_accounts")->where('user_id', $this->user['id'])->first();
+        });
         $this->fundingTransactions();
         Session::flash('success', 'Fund your wallet with any of these account numbers');
     }
+
+
  
 
     public function fundingTransactions()

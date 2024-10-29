@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Verify Email')
 @section('main')
 <div class="auth-header">
     <a wire:navigate href="/"> <i class="back-btn" data-feather="arrow-left"></i> </a>
@@ -9,6 +10,6 @@
             <h4 class="p-0">Enter the confirmation code sent to continue</h4>
         </div>
     </div>
-</div> 
+</div>
 @livewire('auth.verify-email')
 @endsection

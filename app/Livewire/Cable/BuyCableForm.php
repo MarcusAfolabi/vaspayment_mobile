@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Services\ApiEndpoints;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -252,7 +253,7 @@ class BuyCableForm extends Component
             Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
             return $wallet;
         } else {
-            Log::error('Wallet not found for user ID: ' . auth()->id());
+            Log::error('Wallet not found for user ID: ' . $this->user['id']);
             return null;
         }
     }

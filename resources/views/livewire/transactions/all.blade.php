@@ -129,7 +129,7 @@
                                         {{ isset($transaction['destination']) ? substr($transaction['destination'], 0, 60) : '' }}
                                     </h3>
                                 </li>
-                                <li class="amount">
+                                <li hidden class="amount">
                                     <h3 class="fw-normal dark-text">Amount</h3>
                                     <h3 class="fw-semibold success-color">₦{{ number_format($transaction['amount'], 2) }}</h3>
                                 </li>

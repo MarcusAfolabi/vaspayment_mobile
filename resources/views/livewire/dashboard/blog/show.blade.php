@@ -21,8 +21,11 @@
                       </h6>
                   </div>
                   <div class="news-description">
-                      <p>{{ $show['description'] }}</p>
+                      <p>{!! $show['description'] !!}</p>
 
+                      <p class="border-b mt-1">
+                          {!! preg_replace('/(#\w+)/', '<strong>$1</strong>', $show['tag']) !!}
+                      </p>
                       <div class="investment-banner">
                           <div class="investment-content">
                               <!-- google ads -->

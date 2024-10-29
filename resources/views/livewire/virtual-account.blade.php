@@ -1,13 +1,13 @@
 <div>
   @if($virtualAccount != []);
-  @if ($virtualAccount['monipoint_no'])
+  @if ($virtualAccount->monipoint_no)
   <section>
     <div class="custom-container">
       <div class="crypto-wallet-box">
         <div class="card-details" x-data="{ copied: false }">
           <div class="d-block w-75">
             <h5 class="fw-semibold">Moniepoint Microfinance Bank</h5>
-            <h2 class="mt-2" x-ref="monipointAccount">{{ $virtualAccount['monipoint_no'] }}</h2>
+            <h2 class="mt-2" x-ref="monipointAccount">{{ $virtualAccount->monipoint_no }}</h2>
           </div>
           <div class="price-difference">
             <i class="menu-icon" data-feather="arrow-up"></i>
@@ -28,14 +28,14 @@
   </section>
   @endif
 
-  @if ($virtualAccount['wema_no'])
+  @if ($virtualAccount->wema_no)
   <section>
     <div class="custom-container">
       <div class="crypto-wallet-box">
         <div class="card-details" x-data="{ copied: false }">
           <div class="d-block w-75">
             <h5 class="fw-semibold">Wema Bank</h5>
-            <h2 class="mt-2" x-ref="wemaAccount">{{ $virtualAccount['wema_no'] }}</h2>
+            <h2 class="mt-2" x-ref="wemaAccount">{{ $virtualAccount->wema_no }}</h2>
           </div>
           <div class="price-difference">
             <i class="menu-icon" data-feather="arrow-up"></i>
@@ -56,14 +56,14 @@
   </section>
   @endif
 
-  @if ($virtualAccount['budpay_wema_no'])
+  @if ($virtualAccount->budpay_wema_no)
   <section>
     <div class="custom-container">
       <div class="crypto-wallet-box">
         <div class="card-details" x-data="{ copied: false }">
           <div class="d-block w-75">
-            <h5 class="fw-semibold">{{ $virtualAccount['budpay_reference'] }}</h5>
-            <h2 class="mt-2" x-ref="wemaAccount">{{ $virtualAccount['budpay_wema_no'] }}</h2>
+            <h5 class="fw-semibold">{{ $virtualAccount->budpay_reference }}</h5>
+            <h2 class="mt-2" x-ref="wemaAccount">{{ $virtualAccount->budpay_wema_no }}</h2>
           </div>
           <div class="price-difference">
             <i class="menu-icon" data-feather="arrow-up"></i>

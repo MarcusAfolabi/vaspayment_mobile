@@ -46,16 +46,16 @@
                             </div>
                             <div class="transaction-details">
                                 <div class="transaction-name">
-                                    <h5>{{ $tx['network'] }}</h5>
+                                    <h5>{{ $tx['network'] }} {{ $tx['type'] }}</h5>
                                     <h3 class="dark-text success-color">₦{{ $tx['amount'] }}</h3>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="light-text">{{ $tx['type'] }}</h5>
+                                    <h5 class="light-text">{{ $tx['token'] }}</h5>
                                     @php
                                     $createdAt = \Carbon\Carbon::parse($tx['created_at']);
                                     @endphp
 
-                                    <h5 class="success-color">
+                                    <h6 class="success-color">
                                         @if ($createdAt->isToday())
                                         <span class="light-text">Today {{ $createdAt->format('h:i A') }}</span>
                                         @elseif ($createdAt->isYesterday())
@@ -63,8 +63,7 @@
                                         @else
                                         <span class="light-text">{{ $createdAt->format('d M, Y') }}</span>
                                         @endif
-                                    </h5>
-
+                                    </h6>
                                 </div>
                             </div>
                         </a>
@@ -91,6 +90,13 @@
                                                 <h3 class="fw-normal dark-text">Sender</h3>
                                                 <h3 class="fw-normal light-text">You ({{ $userName }})</h3>
                                             </li>
+                                            @if ($tx['token'])
+
+                                            <li>
+                                                <h3 class="fw-normal dark-text">Receiver</h3>
+                                                <h3 class="fw-normal light-text">{{ $tx['token'] }}</h3>
+                                            </li>
+                                            @endif
                                             <li>
                                                 <h3 class="fw-normal dark-text">Category</h3>
                                                 <h3 class="fw-normal light-text">{{ $tx['network'] }} {{ $tx['type'] }}</h3>
@@ -101,7 +107,7 @@
                                                     {{ isset($tx['destination']) ? substr($tx['destination'], 0, 60) : '' }}
                                                 </h3>
                                             </li>
-                                            <li class="amount">
+                                            <li hidden class="amount">
                                                 <h3 class="fw-normal dark-text">Amount</h3>
                                                 <h3 class="fw-semibold success-color">₦{{ number_format($tx['amount'], 2) }}</h3>
                                             </li>
@@ -144,5 +150,11 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var myModal = new bootstrap.Modal(document.getElementById('pay'));
+            myModal.show();
+        });
+    </script>
 
 </div>

@@ -55,7 +55,7 @@
                                     $createdAt = \Carbon\Carbon::parse($tx['created_at']);
                                     @endphp
 
-                                    <h5 class="success-color">
+                                    <h6 class="success-color">
                                         @if ($createdAt->isToday())
                                         <span class="light-text">Today {{ $createdAt->format('h:i A') }}</span>
                                         @elseif ($createdAt->isYesterday())
@@ -63,7 +63,7 @@
                                         @else
                                         <span class="light-text">{{ $createdAt->format('h:i A d M, Y') }}</span>
                                         @endif
-                                    </h5>
+                                    </h6>
                                 </div>
                             </div>
                         </a>
@@ -88,11 +88,14 @@
                                                 <h3 class="fw-normal dark-text">Sender</h3>
                                                 <h3 class="fw-normal light-text">You ({{ $userName }})</h3>
                                             </li>
+                                            @if ($tx['token'])
+
                                             <li>
                                                 <h3 class="fw-normal dark-text">Receiver</h3>
                                                 <h3 class="fw-normal light-text">{{ $tx['token'] }}</h3>
                                             </li>
-                                            
+
+                                            @endif
                                             <li>
                                                 <h3 class="fw-normal dark-text">Category</h3>
                                                 <h3 class="fw-normal light-text">{{ $tx['network'] }} {{ $tx['type'] }}</h3>
@@ -133,6 +136,7 @@
     <section class="panel-space"></section>
 
     <!-- pay modal starts -->
+    <!-- Modal Markup -->
     <div class="modal pay-modal fade" id="pay" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -146,5 +150,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Trigger Modal on Page Load -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var myModal = new bootstrap.Modal(document.getElementById('pay'));
+            myModal.show();
+        });
+    </script>
 
 </div>

@@ -48,7 +48,8 @@ class AuthenticationController extends Controller
         $this->deviceName();
         if ($redirect = $this->checkUserAndRedirect()) {
             return $redirect;
-        }        return view("auth.login");
+        }
+        return view("auth.login");
     }
 
     public function register()
