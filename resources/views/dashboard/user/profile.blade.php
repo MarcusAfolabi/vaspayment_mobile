@@ -34,7 +34,6 @@ $phone = $user['phone'];
                     }">
                 @if ($user['role'] == 'agent')
                 <h6 class="mt-4 mb-4">
-
                     <span> API TOKEN: </span> <code> {{ $token }} </code>
                     <img src="{{ asset('assets/feather/copy.svg') }}" @click="copyToClipboard()" style="cursor: pointer;" alt="Copy Referral ID" />
                 </h6>

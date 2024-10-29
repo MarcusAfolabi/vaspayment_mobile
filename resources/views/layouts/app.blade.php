@@ -103,8 +103,10 @@
             @endif
         });
     </script>
-
-
+    
+    <div x-data="{ idleTime: 0 }" x-init="setInterval(() => { idleTime++; if (idleTime >= 5) location.reload(); }, 60000)" @mousemove="idleTime = 0" @keydown="idleTime = 0">
+    </div>
+    
     <script rel="preload" src="{{ asset('assets/js/swiper-bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/custom-swiper.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/feather.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>

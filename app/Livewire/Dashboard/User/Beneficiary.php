@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\User;
 use Livewire\Component;
 use App\Services\ApiEndpoints;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class Beneficiary extends Component
 {
@@ -18,12 +19,10 @@ class Beneficiary extends Component
             ->post($apiEndpoints::getBeneficiary());
 
         if ($response->successful()) {
-            // Extracting the beneficiaries and their lists
             $this->beneficaries = [];
 
             foreach ($response->json()['data'] as $beneficiary) {
-                // Decode the list and store it as part of the beneficiary
-                $beneficiary['list'] = json_decode($beneficiary['list'], true); // Decode as associative array
+                $beneficiary['list'] = json_decode($beneficiary['list'], true); 
                 $this->beneficaries[] = $beneficiary;
             }
         }
@@ -39,16 +38,15 @@ class Beneficiary extends Component
             'beneficiaryUuid' => $this->beneficiaryName,
             'type' => $this->type,
         ];
-        info($body);   
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::updateBenficiary());
-            dd($response->json());
         if ($response->successful()) {
             $this->mount();
             $info = $response->json()['message'];
+            Session::flash('success', $info);
         }
 
     }
