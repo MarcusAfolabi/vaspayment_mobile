@@ -57,7 +57,7 @@ class Login extends Component
                 // Check if virtual account exists before creating it
                 if (empty($virtualAccount)) {
                     $this->createVirtualAccount();
-                }                             
+                }
 
                 Session::flash('success', 'Thank you for your patronage, ' . $data['name']);
                 return redirect()->to('/dashboard');
@@ -69,40 +69,103 @@ class Login extends Component
         }
     }
 
-  
+
+
+    // public function createVirtualAccount()
+    // {
+    //         $user = Session::get('user');
+    //         $nin = $user['phone'];
+    //         $nin = substr(preg_replace('/\D/', '', $nin), 0, 11);
+
+    //         try {
+    //             $body = [
+    //                 'nin' => $nin,
+    //                 'email' => $user['email'],
+    //                 'name' => $user['name'],
+    //                 'lastname' => $user['lastname'] ?? 'Guest' ,
+    //                 'phone' => $nin,
+    //             ];
+
+    //             $apiEndpoints = new ApiEndpoints();
+    //             $headers = $apiEndpoints->header();
+
+    //             $response = Http::withHeaders($headers)
+    //                 ->withBody(json_encode($body), 'application/json')
+    //                 ->post(ApiEndpoints::createBudPayVirtualAccount());
+
+    //             if ($response->successful()) {
+    //                 $data = $response->json()['data'];
+    //                 session(['virtualAccount' => $data]);
+    //             } else {
+    //                 info("Failed to create virtual account: " . $response->json()['message']);
+    //             }
+    //         } catch (\Throwable $th) {
+    //             info("Error creating virtual account: " . $th->getMessage());
+    //         } 
+    // }
+
 
     public function createVirtualAccount()
     {
-            $user = Session::get('user');
-            $nin = $user['phone'];
-            $nin = substr(preg_replace('/\D/', '', $nin), 0, 11);
+        $user = Session::get('user');
+        $nin = $user['phone'];
+        $nin = substr(preg_replace('/\D/', '', $nin), 0, 11);
 
-            try {
-                $body = [
-                    'nin' => $nin,
-                    'email' => $user['email'],
-                    'name' => $user['name'],
-                    'lastname' => $user['lastname'],
-                    'phone' => $nin,
-                ];
-                
-                $apiEndpoints = new ApiEndpoints();
-                $headers = $apiEndpoints->header();
+        try {
+            $body = [
+                'nin' => $nin,
+                'email' => $user['email'],
+                'name' => $user['name'],
+                'lastname' => $user['lastname'] ?? 'Guest',
+                'phone' => $nin,
+            ];
 
-                $response = Http::withHeaders($headers)
-                    ->withBody(json_encode($body), 'application/json')
-                    ->post(ApiEndpoints::createBudPayVirtualAccount());
+            $apiEndpoints = new ApiEndpoints();
+            $headers = $apiEndpoints->header();
 
-                if ($response->successful()) {
-                    $data = $response->json()['data'];
-                    session(['virtualAccount' => $data]);
-                } else {
-                    info("Failed to create virtual account: " . $response->json()['message']);
+            $response = Http::withHeaders($headers)
+                ->withBody(json_encode($body), 'application/json')
+                ->post(ApiEndpoints::createBudPayVirtualAccount());
+
+            if ($response->successful()) {
+                $data = $response->json()['data'];
+                session(['virtualAccount' => $data]);
+            } else {
+                $errorMessage = $response->json()['message'] ?? 'Unknown error';
+                info("Failed to create virtual account: " . $errorMessage);
+
+                if (str_contains($errorMessage, 'The phone has already been taken')) {
+                    // Generate random phone number and lastname
+                    $randomPhone = '090' . mt_rand(10000000, 99999999);
+                    $randomLastName = $this->generateRandomName();
+
+                    // Retry with new phone and lastname
+                    $body['phone'] = $randomPhone;
+                    $body['lastname'] = $randomLastName;
+
+                    $retryResponse = Http::withHeaders($headers)
+                        ->withBody(json_encode($body), 'application/json')
+                        ->post(ApiEndpoints::createBudPayVirtualAccount());
+
+                    if ($retryResponse->successful()) {
+                        $data = $retryResponse->json()['data'];
+                        session(['virtualAccount' => $data]);
+                    } else {
+                        info("Retry failed: " . $retryResponse->json()['message']);
+                    }
                 }
-            } catch (\Throwable $th) {
-                info("Error creating virtual account: " . $th->getMessage());
-            } 
+            }
+        } catch (\Throwable $th) {
+            info("Error creating virtual account: " . $th->getMessage());
+        }
     }
+
+    private function generateRandomName()
+    {
+        $names = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'];
+        return $names[array_rand($names)];
+    }
+
 
     public function render()
     {

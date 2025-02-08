@@ -14,7 +14,6 @@ class Index extends Component
         $apiEndpoints = new ApiEndpoints();
         $headers = $apiEndpoints->header();
         $response = Http::withHeaders($headers)
-        // ->withBody(json_encode($body), 'application/json')
         ->get($apiEndpoints::allBlog());
         if ($response->successful()) {
             $this->blogs = $response->json()['data'];

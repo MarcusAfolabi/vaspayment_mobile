@@ -1,6 +1,6 @@
 <div class="navbar-menu">
     <div class="scanner-bg">
-        <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" class="scanner-btn" wire:navigate>
+        <a href="{{ route('product.all') }}" class="scanner-btn">
             <img class="img-fluid" src="{{ asset('assets/images/svg/scan.svg') }}" alt="scan" />
         </a>
     </div>

@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label for="phone" class="form-label">Referral ID (Optional)</label>
                 <div class="form-input">
-                    <input type="number" id="refer_id" inputmode="numeric" placeholder="e.g 12345678" wire:model.lazy="refer_id" class="form-control" oninput="this.value = this.value.slice(0, 8);">
+                    <input type="number" id="refer_id" inputmode="numeric" placeholder="e.g 12345678" wire:model="refer_id" class="form-control" oninput="this.value = this.value.slice(0, 8);">
                 </div>
             </div>
 

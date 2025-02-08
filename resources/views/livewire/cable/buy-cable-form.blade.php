@@ -4,7 +4,7 @@
         @if ($beneficiaries)
         <div class="d-flex justify-content-between mb-1">
             <h3>Beneficiaries</h3>
-            <a href="#" class="theme-color">See all</a>
+            <a href="{{route('user.beneficiary')}}" class="theme-color">See all</a>
         </div>
 
         <div class="quick-send mb-2 border-b-2">

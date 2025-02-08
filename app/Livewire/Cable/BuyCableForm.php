@@ -250,7 +250,7 @@ class BuyCableForm extends Component
                 'balance' => $wallet->balance,
                 'commission' => $wallet->commission,
             ]);
-            Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
+            // Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
             return $wallet;
         } else {
             Log::error('Wallet not found for user ID: ' . $this->user['id']);

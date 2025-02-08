@@ -34,8 +34,8 @@
 
     @livewireStyles
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6487824117243144" crossorigin="anonymous"></script>
     <meta name="google-site-verification" content="uhIen3ZQPL0dIOdQzY4pSdjQC_tJXMV5UN-OiLHW-e8" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6487824117243144" crossorigin="anonymous"></script>
 </head>
 
 <body class="{{ Route::is('home', 'login', 'register', 'forget-password') ? 'auth-body' : '' }}">
@@ -113,14 +113,9 @@
     <!-- <script rel="preload" src="{{ asset('assets/js/custom-feather.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script> -->
     <script rel="preload" src="{{ asset('assets/js/iconsax.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
     <script rel="preload" src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script>
-    <!-- <script rel="preload" src="{{ asset('assets/js/homescreen-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script> -->
-    <!-- <script rel="preload" src="{{ asset('assets/js/offcanvas-popup.js') }}" as="script" onload="this.onload=null;this.rel='script'"></script> -->
-    <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
+     <script rel="preload" src="{{ asset('assets/js/script.js') }}" as="script" onload="this.onload=null;this.rel='script'">
     </script>
-    <script rel="script" src="{{ asset('assets/js/script.js') }}">
-    </script>
-
-
+    <script rel="script" src="{{ asset('assets/js/script.js') }}"></script>
 </body>
 
 </html>

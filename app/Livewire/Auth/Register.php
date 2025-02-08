@@ -51,10 +51,10 @@ class Register extends Component
         return $phone;
     }
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
+    // public function updated($propertyName)
+    // {
+    //     $this->validateOnly($propertyName);
+    // }
 
    public $countryCode;
     public function register()

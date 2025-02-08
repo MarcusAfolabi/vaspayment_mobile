@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', '503 - Currently under maintainance')
 @section('main')
-<x-header />
 
 <section class="section-b-space">
     <div class="custom-container">

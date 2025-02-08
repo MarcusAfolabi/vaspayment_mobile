@@ -2,7 +2,6 @@
 @section('title', 'No Internet Connection')
 @section('main')
 
-<x-header />
 
 <section class="section-b-space">
     <div class="custom-container">

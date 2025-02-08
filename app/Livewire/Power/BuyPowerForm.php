@@ -143,6 +143,7 @@ class BuyPowerForm extends Component
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::queryMeterNo());
+        info($response->json());
         $responseData = $response->json();
         if (isset($responseData['status']) && $responseData['status'] === 'success') {
             if (isset($responseData['data']['customerName']) && !empty($responseData['data']['customerName'])) {
@@ -207,6 +208,9 @@ class BuyPowerForm extends Component
         $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
             ->post(ApiEndpoints::buyElectricity());
+
+        info($response->json());
+
         if ($response->successful()) {
             $this->refreshWalletSession();
             $info = $response->json()['message'];
@@ -226,13 +230,14 @@ class BuyPowerForm extends Component
                 'balance' => $wallet->balance,
                 'commission' => $wallet->commission,
             ]);
-            Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
+            // Log::info('Wallet session refreshed: ', ['wallet_id' => $wallet->wallet_id, 'balance' => $wallet->balance, 'commission' => $wallet->commission]);
             return $wallet;
         } else {
             Log::error('Wallet not found for user ID: ' . $this->user['id']);
             return null;
         }
     }
+
     public function render()
     {
         return view('livewire.power.buy-power-form');

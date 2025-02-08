@@ -56,7 +56,8 @@ class Index extends Component
             $headers = $apiEndpoints->header();
             $response = Http::withHeaders($headers)
             ->withBody(json_encode($body), 'application/json')
-            ->post(ApiEndpoints::makeTransfer());
+            ->post(ApiEndpoints::commissionTransfer());
+            
             if ($response->successful()) {
                 $this->refreshWalletSession();
                 Session::flash('success',  $response->json()['message']);

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', '404 - Page not found')
 @section('main')
-    <x-header />
     <section class="section-b-space">
         <div class="custom-container">
             <div class="empty-page">

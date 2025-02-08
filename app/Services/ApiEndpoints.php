@@ -6,6 +6,10 @@ use App\Models\Key;
 
 class ApiEndpoints
 {
+    public static function commissionTransfer()
+    {
+        return self::baseUrl() . '/commission-transfer';
+    }
     public static function allBlog()
     {
         return self::baseUrl() . '/blogs';

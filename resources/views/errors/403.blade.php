@@ -2,7 +2,6 @@
 @section('title', '403 - Unauthorization action')
 @section('main')
 
-<x-header />
 
 <section class="section-b-space">
     <div class="custom-container">
