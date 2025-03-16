@@ -4,10 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Services\ApiEndpoints;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\Http; 
 use Illuminate\Support\Facades\Session;
 
 class VirtualAccount extends Component
@@ -27,16 +25,19 @@ class VirtualAccount extends Component
 
     public function mount()
     {
-        $this->user = Session::get("user");
-        $this->virtualAccount = Cache::remember('virtual_account_' . $this->user['id'], 86400, function () {
-            return DB::table("virtual_accounts")->where('user_id', $this->user['id'])->first();
-        });
+        $this->user = Session::get("user"); 
+        //fetch the user virtual account
+        $this->virtualAccount = DB::table("virtual_accounts")
+        ->where('user_id', $this->user['id'] ?? null)
+        ->first();
+
+        if (!$this->virtualAccount) {
+            $this->verifyBVN();
+        }
+
         $this->fundingTransactions();
         Session::flash('success', 'Fund your wallet with any of these account numbers');
     }
-
-
- 
 
     public function fundingTransactions()
     {
@@ -57,13 +58,10 @@ class VirtualAccount extends Component
 
     public function verifyBVN()
     {
+        
         $user = Session::get('user');
-        $wallet = Session::get('wallet');
-        $this->validate([
-            'bvn' => 'required|digits:11',
-            'lastname' => 'required|string',
-        ]);
-
+        $wallet = Session::get('wallet'); 
+        $this->bvn = str_pad(mt_rand(0, 99999999999), 11, '0', STR_PAD_LEFT);
         $body = [
             'bvn' => $this->bvn,
             'wallet_id' => $wallet['id'],
