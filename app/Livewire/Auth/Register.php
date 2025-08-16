@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Livewire\Auth;
- 
+
 use Livewire\Component;
 use Illuminate\Http\Request;
-use App\Services\ApiEndpoints; 
+use App\Services\ApiEndpoints;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -51,12 +51,7 @@ class Register extends Component
         return $phone;
     }
 
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName);
-    // }
-
-   public $countryCode;
+    public $countryCode;
     public function register()
     {
         Session::put('user_email', $this->email);
@@ -74,12 +69,11 @@ class Register extends Component
             ]);
 
             if ($response->successful()) {
-                $data = $response->json(); 
+                $data = $response->json();
                 Session::flash('success', $data['message']);
                 return redirect()->to('/verify-email');
             } else {
                 $errorMessage = $response->json()['message'];
-                info($errorMessage);
                 $this->addError('error', $errorMessage);
             }
         } catch (\Exception $e) {

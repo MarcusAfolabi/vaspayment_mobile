@@ -37,6 +37,7 @@
                     <select wire:model="countryCode" class="form-select">
                         <option value="">Select Country</option>
                         <option value="234" data-flag="NG">🇳🇬 +234</option>
+                        <option value="254" data-flag="KE">🇰🇪 +254</option>
                     </select>
                     <input wire:model.blur='phone' maxlength="11" minlength="11" autocomplete="mobile" name='phone' type="tel" class="form-control" placeholder="Enter your phone" />
                 </div>
